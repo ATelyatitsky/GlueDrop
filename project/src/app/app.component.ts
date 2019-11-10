@@ -34,6 +34,11 @@ export class AppComponent {
       url: '/cardsGlueDrop',
       icon: 'list'
     },
+    {
+      title: 'Статистика',
+      url: '/dashboardGlueDrop',
+      icon: 'list'
+    },
   ];
 
   public walletPages = [

@@ -1,0 +1,234 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Статистика</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar style="--background: #4a5565;">
+    <ion-segment>
+      <ion-segment-button value="Day" checked>
+        <ion-label>День</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Week">
+        <ion-label>Неделя</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Month">
+        <ion-label>Месяц</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div>
+    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+  </div>
+  <div>
+    <ion-item mode="ios" style="--background: #4a5565; --border-style: none; width: 25%; float: left; display: inline-block">
+    <ion-icon size="small" slot="start" style="color: #63d0c5; margin: 1% 2%;" name="radio-button-on"></ion-icon>
+      <p no-margin text-wrap style="color:white; --border-color: unset;">Сахар</p>
+    </ion-item>
+    <ion-item mode="ios" style="--background: #4a5565; --border-style: none; width: 25%; display: inline-block">
+      <ion-icon size="small" slot="start" style="color: #FFDD7D; margin: 1% 2%;" name="radio-button-on"></ion-icon>
+      <p no-margin text-wrap style="color:white; --border-color: unset;">ХЕ</p>
+    </ion-item>
+  </div>
+
+  <ion-grid no-padding style="background: white">
+    <ion-row>
+      <ion-col size="9" no-padding>
+        <ion-grid class="is-grid is-grid-tiles" no-padding>
+          <ion-row text-center>
+            <ion-col size="6" class="is-tile">
+              <h3 style="margin-left: unset;">
+                <span style="color: black">СРЕДНИЙ</span>
+                8.9 <span>ммоль/л</span>
+                <span style="color: rgba(151,198,107,1)">Нормально</span>
+              </h3>
+            </ion-col>
+            <ion-col size="6" class="is-tile">
+              <h3 style="margin-left: unset;">
+                <span style="color: black">РАЗБРОС</span>
+                ±1.6 <span>ммоль/л</span>
+                <span style="color: rgba(151,198,107,1)">Нормально</span>
+              </h3>
+            </ion-col>
+          </ion-row>
+          <ion-row text-center>
+            <ion-col class="is-tile">
+              <h3 style="margin-top: unset; margin-bottom: unset; margin-left: unset;">
+                <span style="color: black;">СООТНОШЕНИЕ</span>
+              </h3>
+            </ion-col>
+          </ion-row>
+          <ion-row text-center>
+            <ion-col size="4" class="is-tile">
+              <h3 style="margin-top: unset; margin-left: unset; color: rgba(97,207,233,1)">
+                0.0%
+                <span>Низкий</span>
+              </h3>
+            </ion-col>
+            <ion-col size="4" class="is-tile">
+              <h3 style="margin-top: unset; margin-left: unset; color: rgba(151,198,107,1)">
+                0.0%
+                <span>Нормальный</span>
+              </h3>
+            </ion-col>
+            <ion-col size="4" class="is-tile">
+              <h3 style="margin-top: unset; margin-left: unset; color: rgba(255,137,192,1)">
+                0.0%
+                <span>Высокий</span>
+              </h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col size="3" no-padding>
+        <canvas baseChart style="height: 100%; width: 100%; padding-top: 16px; padding-bottom:16px;"
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [options]="doughnutChartOptions"
+                [colors]="doughnutChartColors"
+                [legend]="doughnutChartLegend"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-top: 1px solid var(--ion-color-is-mute-light)">
+      <ion-grid class="is-grid is-grid-tiles" no-padding>
+        <ion-row text-center>
+        <ion-col class="is-tile">
+          <h3 style="margin-top: unset; margin-bottom: unset; margin-left: unset;">
+            <span style="color: black; font-size: 16px">ИСТОРИЯ</span>
+          </h3>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-list no-margin>
+            <ion-item-sliding>
+              <ion-item>
+                <ion-label no-margin>
+                  <ion-item  style="border: unset">
+                    <ion-icon size="small" slot="start" name="time"></ion-icon>
+                    <p text-wrap>00:11</p>
+                    <p slot="end" text-wrap>Сегодня</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/glucose_meter.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/bread.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe1.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+
+                  <ion-item mode="ios" style="border: unset;">
+                    <ion-img slot="start" style="width: 6%" src="assets/imgs/comment.png"></ion-img>
+                    <p text-wrap>Text</p>
+                  </ion-item>
+
+                </ion-label>
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option expandable color="danger">Удалить</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+            <ion-item-sliding>
+              <ion-item >
+                <ion-label no-margin>
+                  <ion-item style="border: unset">
+                    <ion-icon size="small" slot="start" name="time"></ion-icon>
+                    <p text-wrap>00:11</p>
+                    <p slot="end" text-wrap>Сегодня</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/glucose_meter.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/bread.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe1.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+
+                  <ion-item mode="ios" style="border: unset;">
+                    <ion-img slot="start" style="width: 6%" src="assets/imgs/comment.png"></ion-img>
+                    <p text-wrap>Text</p>
+                  </ion-item>
+
+                </ion-label>
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option expandable color="danger">Удалить</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+            <ion-item-sliding>
+              <ion-item>
+                <ion-label no-margin>
+                  <ion-item style="border: unset">
+                    <ion-icon size="small" slot="start" name="time"></ion-icon>
+                    <p text-wrap>00:11</p>
+                    <p slot="end" text-wrap>Сегодня</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/glucose_meter.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/bread.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe1.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+                  <ion-item mode="ios" style="border: unset; width: 20%; float: left;">
+                    <ion-img slot="start" style="width: 40%" src="assets/imgs/syringe.png"></ion-img>
+                    <p text-wrap>-</p>
+                  </ion-item>
+
+                  <ion-item mode="ios" style="border: unset;">
+                    <ion-img slot="start" style="width: 6%" src="assets/imgs/comment.png"></ion-img>
+                    <p text-wrap>Text</p>
+                  </ion-item>
+
+                </ion-label>
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option expandable color="danger">Удалить</ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+
+    </ion-row>
+  </ion-grid>
+
+<!--  <table class="table table-responsive table-condensed">-->
+<!--    <tr>-->
+<!--      <th *ngFor="let label of lineChartLabels"></th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let d of lineChartData">-->
+<!--      <td *ngFor="let label of lineChartLabels; let j=index"></td>-->
+<!--    </tr>-->
+<!--  </table>-->
+</ion-content>

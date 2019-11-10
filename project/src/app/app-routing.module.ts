@@ -15,6 +15,7 @@ const routes: Routes = [
   },
   { path: 'signupGlueDrop', loadChildren: './signup.glueDrop/signup.module#SignupPageModule' },
   { path: 'cardsGlueDrop', loadChildren: './cards.glueDrop/cards.module#CardsPageModule' },
+  { path: 'dashboardGlueDrop', loadChildren: './dashboard.glueDrop/dashboard.module#DashboardPageModule' },
   {
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'
