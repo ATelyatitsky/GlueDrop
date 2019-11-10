@@ -1,0 +1,10 @@
+.essential-theme {
+  .is-segment-clear {
+    ion-segment-button {
+      --indicator-color-checked: transparent;
+      --background-checked: transparent;
+      --background: transparent;
+      --border-width: 0px;
+    }
+  }
+}

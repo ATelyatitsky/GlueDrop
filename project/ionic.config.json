@@ -1,0 +1,7 @@
+{
+  "name": "ionic-stencil-essential",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

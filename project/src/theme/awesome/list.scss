@@ -1,0 +1,15 @@
+.essential-theme.essential-theme--awesome {
+
+  ion-list, ion-item-group {
+
+    ion-item[color] {
+      --detail-icon-color: var(--ion-color-contrast);
+      --detail-icon-opacity: 1;
+      ion-icon {
+        color: var(--ion-color-contrast);
+      }
+    }
+
+  }
+
+}

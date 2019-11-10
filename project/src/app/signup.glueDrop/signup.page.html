@@ -1,0 +1,109 @@
+<ion-header class="is-header-logo-centered">
+  <ion-toolbar class="gradient-background bthHeaderColor" >
+    <ion-buttons slot="start" (click)="login()" style="cursor: pointer">
+      <ion-icon slot="icon-only" style="color: white !important;" name="arrow-back"> </ion-icon>
+    </ion-buttons>
+    <ion-title style="font-weight: normal">Регистрация</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-divider class="gradient-background">
+      <ion-label text-uppercase="true">Профиль</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-icon slot="start" name="person"></ion-icon>
+      <ion-input placeholder="Имя пользователя"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="mail"></ion-icon>
+      <ion-input placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="lock"></ion-icon>
+      <ion-input type="password" placeholder="Пароль"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="lock"></ion-icon>
+      <ion-input type="password" placeholder="Проверка пароля"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-divider class="gradient-background">
+      <ion-label text-uppercase="true">Данные пациента</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <ion-label style="color: #344B59; font-weight: lighter">Дата рождения</ion-label>
+      <ion-datetime displayFormat="DD.MM.YYYY" pickerFormat="DD.MMMM.YYYY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="heart-half"></ion-icon>
+      <ion-label>Тип диабета</ion-label>
+      <ion-segment class="light-mint-color" value="II" style="width: 60%">
+        <ion-segment-button value="I">
+          <ion-label>I</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="II">
+          <ion-label>II</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="transgender"></ion-icon>
+      <ion-label>Пол</ion-label>
+      <ion-segment class="light-mint-color" value="М" style="width: 60%">
+        <ion-segment-button value="М">
+          <ion-label>М</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Ж">
+          <ion-label>Ж</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+  </ion-list>
+
+  <ion-list padding-vertical>
+    <ion-item-divider class="gradient-background">
+      <ion-label text-uppercase="true">Предпочтения</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label >Углеводов в ХЕ</ion-label>
+      <ion-buttons slot="end">
+        <ion-text >12</ion-text>
+        <ion-button> <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
+        <ion-button> <ion-icon slot="icon-only" name="remove"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="logo-ionic"></ion-icon>
+      <ion-label >Целевой сахар</ion-label>
+      <ion-text slot="end">6.5 <span class="text-indicator" style="font-size: 10px">ммоль/л</span></ion-text>
+    </ion-item>
+    <ion-item>
+     <ion-icon slot="start" name="information-circle-outline" color="danger"></ion-icon>
+      <ion-label >Высокий сахар</ion-label>
+      <ion-text slot="end">9.0 <span class="text-indicator" style="font-size: 10px">ммоль/л</span></ion-text>
+    </ion-item>
+    <ion-item>
+     <ion-icon slot="start" name="information-circle-outline" color="primary"></ion-icon>
+      <ion-label >Низкий сахар</ion-label>
+      <ion-text slot="end">4.5 <span class="text-indicator" style="font-size: 10px">ммоль/л</span></ion-text>
+    </ion-item>
+  </ion-list>
+
+  <ion-list padding-vertical lines="none">
+    <ion-item style="border-top: 1px solid var(--ion-color-is-mute-light);" text-center="true">
+      <ion-label>Регистрируясь, вы соглашаетесь с<br/>
+        <a href="">политикой конфиденциальности <br/> и условиями пользования</a></ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="none" no-margin class="is-list-buttons" style="padding: 0 16px">
+    <ion-item color="primary" button detail="true">
+      Зарегистрироваться
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,35 @@
+.is-payment-cards ion-card ion-thumbnail img {
+  padding: 4px;
+  background: #fff;
+  box-sizing: content-box;
+}
+ion-content {
+  //background-color: #4a5565;
+  background-size: cover;
+  background-position: center;
+  //--background: transparent;
+  --background: linear-gradient(to right, #71db99, #56c5f0);
+}
+
+ion-datetime {
+  margin: auto;
+  font-size: 12px;
+  padding: 4px;
+  border: 1px solid  #63d0c5;
+  border-radius: 10px;
+}
+
+ion-item {
+  --min-height: unset;
+}
+
+ion-avatar {
+  border: 1px solid #63d0c5;
+  --border-radius: 20px;
+  padding: 6px;
+  margin: auto;
+  cursor: pointer;
+}
+
+ion-avatar {
+}
