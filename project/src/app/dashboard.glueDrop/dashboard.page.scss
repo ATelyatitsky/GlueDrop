@@ -1,9 +1,15 @@
-ion-content {
-  //background-color: #4a5565;
+:host {
   background-size: cover;
   background-position: center;
-  //--background: transparent;
-  --background: #4a5565;
+  --background: transparent;
+  //--background: #4a5565;
+  background-image: url("assets/imgs/landscape.png");
+
+  ion-content, ion-toolbar {
+    --background: transparent;
+    --ion-toolbar-border-color: transparent !important;
+    color: white;
+  }
 }
 
 h3 {
@@ -12,4 +18,7 @@ h3 {
 
 ion-item {
   --min-height: unset;
+}
+span {
+  color: white !important;
 }

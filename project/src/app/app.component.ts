@@ -39,6 +39,11 @@ export class AppComponent {
       url: '/dashboardGlueDrop',
       icon: 'list'
     },
+    {
+      title: 'Мои цели',
+      url: '/calendarGlueDrop',
+      icon: 'list'
+    },
   ];
 
   public walletPages = [

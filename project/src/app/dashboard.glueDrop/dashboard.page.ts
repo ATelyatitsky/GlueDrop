@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardPage implements OnInit {
 
   lineChartData: Array<any> = [
-    { data: [10, 6, 10, 12, 8, 15, 1], label: 'Сахар' },
-    { data: [8, 4, 7, 9, 10, 5, 3], label: 'ХЕ' },
+    { data: [10, 6, 10, 12, 8, 15, 1], label: 'Сахар', lineTension: 0 },
+    { data: [8, 4, 7, 9, 10, 5, 3], label: 'ХЕ', lineTension: 0 },
     { data: [9, 9, 9, 9, 9, 9, 9], label: 'Высокий уровень сахара'},
     { data: [4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5], label: 'Низкий уровень сахара'}
   ];
@@ -80,7 +80,7 @@ export class DashboardPage implements OnInit {
   lineChartType = 'line';
 
 
-  doughnutChartLabels: string[] = ['Высокий уровень сахара', 'Нормальный уровень сахара', 'Низкий уровень сахара',  ];
+  doughnutChartLabels: string[] = ['Высокий', 'Нормальный', 'Низкий'];
   doughnutChartData: number[] = [200, 150, 100];
   doughnutChartType = 'doughnut';
 
@@ -88,7 +88,8 @@ export class DashboardPage implements OnInit {
     circumference: Math.PI,
     rotation: 0.5 * Math.PI,
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+
   };
   doughnutChartColors: Array<any> = [
     {

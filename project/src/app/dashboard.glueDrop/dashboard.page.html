@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-toolbar style="--background: #4a5565;">
-    <ion-segment>
-      <ion-segment-button value="Day" checked>
+  <ion-toolbar mode="ios" style="--background: transparent;">
+    <ion-segment mode="ios">
+      <ion-segment-button mode="ios" value="Day" checked>
         <ion-label>День</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Week">
+      <ion-segment-button mode="ios" value="Week">
         <ion-label>Неделя</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Month">
+      <ion-segment-button mode="ios" value="Month">
         <ion-label>Месяц</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -25,31 +25,31 @@
     <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   </div>
   <div>
-    <ion-item mode="ios" style="--background: #4a5565; --border-style: none; width: 25%; float: left; display: inline-block">
-    <ion-icon size="small" slot="start" style="color: #63d0c5; margin: 1% 2%;" name="radio-button-on"></ion-icon>
+    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 25%; float: left; display: inline-block">
+    <ion-icon mode="md" size="small"  slot="start" style="color: #63d0c5; margin: 1% 2%;" name="radio-button-on"></ion-icon>
       <p no-margin text-wrap style="color:white; --border-color: unset;">Сахар</p>
     </ion-item>
-    <ion-item mode="ios" style="--background: #4a5565; --border-style: none; width: 25%; display: inline-block">
-      <ion-icon size="small" slot="start" style="color: #FFDD7D; margin: 1% 2%;" name="radio-button-on"></ion-icon>
+    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 25%; display: inline-block">
+      <ion-icon mode="md" size="small" slot="start" style="color: #FFDD7D; margin: 1% 2%;" name="radio-button-on"></ion-icon>
       <p no-margin text-wrap style="color:white; --border-color: unset;">ХЕ</p>
     </ion-item>
   </div>
 
-  <ion-grid no-padding style="background: white">
+  <ion-grid no-padding>
     <ion-row>
-      <ion-col size="9" no-padding>
+      <ion-col size="8" no-padding>
         <ion-grid class="is-grid is-grid-tiles" no-padding>
           <ion-row text-center>
             <ion-col size="6" class="is-tile">
-              <h3 style="margin-left: unset;">
-                <span style="color: black">СРЕДНИЙ</span>
+              <h3 style="margin-left: unset; color: white !important;">
+                <span>СРЕДНИЙ</span>
                 8.9 <span>ммоль/л</span>
                 <span style="color: rgba(151,198,107,1)">Нормально</span>
               </h3>
             </ion-col>
             <ion-col size="6" class="is-tile">
-              <h3 style="margin-left: unset;">
-                <span style="color: black">РАЗБРОС</span>
+              <h3 style="margin-left: unset; color: white !important;">
+                <span>РАЗБРОС</span>
                 ±1.6 <span>ммоль/л</span>
                 <span style="color: rgba(151,198,107,1)">Нормально</span>
               </h3>
@@ -63,19 +63,19 @@
             </ion-col>
           </ion-row>
           <ion-row text-center>
-            <ion-col size="4" class="is-tile">
+            <ion-col size="4" class="is-tile" no-padding>
               <h3 style="margin-top: unset; margin-left: unset; color: rgba(97,207,233,1)">
                 0.0%
                 <span>Низкий</span>
               </h3>
             </ion-col>
-            <ion-col size="4" class="is-tile">
+            <ion-col size="4" class="is-tile" no-padding>
               <h3 style="margin-top: unset; margin-left: unset; color: rgba(151,198,107,1)">
                 0.0%
                 <span>Нормальный</span>
               </h3>
             </ion-col>
-            <ion-col size="4" class="is-tile">
+            <ion-col size="4" class="is-tile" no-padding>
               <h3 style="margin-top: unset; margin-left: unset; color: rgba(255,137,192,1)">
                 0.0%
                 <span>Высокий</span>
@@ -84,7 +84,7 @@
           </ion-row>
         </ion-grid>
       </ion-col>
-      <ion-col size="3" no-padding>
+      <ion-col size="4" no-padding>
         <canvas baseChart style="height: 100%; width: 100%; padding-top: 16px; padding-bottom:16px;"
                 [data]="doughnutChartData"
                 [labels]="doughnutChartLabels"
@@ -97,12 +97,12 @@
         </canvas>
       </ion-col>
     </ion-row>
-    <ion-row style="border-top: 1px solid var(--ion-color-is-mute-light)">
-      <ion-grid class="is-grid is-grid-tiles" no-padding>
+    <ion-row>
+      <ion-grid class="is-grid is-grid-tiles" no-padding style="background-color: white">
         <ion-row text-center>
         <ion-col class="is-tile">
           <h3 style="margin-top: unset; margin-bottom: unset; margin-left: unset;">
-            <span style="color: black; font-size: 16px">ИСТОРИЯ</span>
+            <span style="color: black!important; font-size: 16px">ИСТОРИЯ</span>
           </h3>
         </ion-col>
         </ion-row>
