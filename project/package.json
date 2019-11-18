@@ -1,16 +1,12 @@
 {
-  "name": "ionic-stencil-essential",
+  "name": "GlueDROP",
   "version": "1.2.0",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ionic-start": "ionic serve --lab"
+    "ionic-start": "ionic serve --lab",
+    "ios-build": "ionic cordova build ios",
+    "ios-run": "ionic cordova run ios"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +22,7 @@
     "@ionic-native/status-bar": "5.0.0",
     "@ionic/angular": "4.3.0",
     "chart.js": "^2.8.0",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "4.0.0",
@@ -34,6 +31,7 @@
     "cordova-plugin-whitelist": "^1.3.3",
     "core-js": "^2.5.4",
     "ng2-charts": "^1.4.1",
+    "node-sass": "^4.13.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.29"
@@ -75,6 +73,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {}
     },
-    "platforms": []
+    "platforms": [
+      "ios"
+    ]
   }
 }
