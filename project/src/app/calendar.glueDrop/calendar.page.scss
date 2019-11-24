@@ -34,6 +34,33 @@ ion-button {
 ion-icon {
   position: absolute;
   bottom: 0;
-  right: 10%;
+  right: 13%;
   color: white;
+}
+
+.sugarColor {
+  color: var(--ion-color-secondary);
+}
+
+/deep/ .modal-wrapper {
+  height: 85% !important;
+  width: 90% !important;
+}
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {
+  /deep/ .modal-wrapper {
+    height: 70% !important;
+    width: 90% !important;
+  }
+}
+
+@media only screen
+and (min-width : 414px)
+and (max-width : 736px) {
+  /deep/ .modal-wrapper {
+    height: 65% !important;
+    width: 90% !important;
+  }
 }

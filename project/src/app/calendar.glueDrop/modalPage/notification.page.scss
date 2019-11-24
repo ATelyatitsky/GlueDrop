@@ -1,0 +1,15 @@
+.chip-margin {
+  margin: auto;
+}
+
+ion-chip {
+  color: var(--ion-color-primary, #3880ff);
+  border-color: var(--ion-color-primary, #3880ff);
+}
+ion-label {
+  font-size: 15px !important;
+}
+
+.text-color {
+  //--color: var(--ion-text-color,#000)
+}

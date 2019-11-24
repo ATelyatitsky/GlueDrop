@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title no-padding>Добавление цели</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list no-margin>
+        <ion-item>
+            <ion-label class="text-color">Категория</ion-label>
+            <ion-icon mode="md" size="small" slot="end" name="radio-button-on" style="margin-left: 10px;"></ion-icon>
+            <ion-select no-padding interface="action-sheet" placeholder="Категория" [value]="typeNotification.toString()" cancelText="Отменить">
+                <ion-select-option value="1">Сахар</ion-select-option>
+                <ion-select-option value="2">Инсулин</ion-select-option>
+                <ion-select-option value="3">Еда</ion-select-option>
+                <ion-select-option value="4">Разное</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label class="text-color">Цель:</ion-label>
+            <ion-input slot="end" [value]="mainValue" placeholder="Введите название цели"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="text-color">Время цели:</ion-label>
+            <ion-datetime displayFormat="DD.MM.YYYY, HH:mm" pickerFormat="DD MMMM HH:mm" [(ngModel)]="dateString" cancelText="Отмена" doneText="Применить"></ion-datetime>
+        </ion-item>
+        <div style="padding-left: 16px; padding-right: 8px">
+            <div>
+                <ion-label>Напомнить через</ion-label>
+            </div>
+            <div>
+                <ion-chip outline style="width: 46%">
+                    <ion-label class="chip-margin">15 минут</ion-label>
+                </ion-chip>
+                <ion-chip outline style="width: 46%">
+                    <ion-label class="chip-margin">30 минут</ion-label>
+                </ion-chip>
+            </div>
+
+            <div text-center>
+                <ion-chip outline style="width: 29%">
+                    <ion-label class="chip-margin">1 час</ion-label>
+                </ion-chip>
+                <ion-chip outline style="width: 31%">
+                    <ion-label class="chip-margin">1,5 часа</ion-label>
+                </ion-chip>
+                <ion-chip outline style="width: 30%">
+                    <ion-label class="chip-margin">2 часа</ion-label>
+                </ion-chip>
+            </div>
+        </div>
+        <ion-item>
+            <ion-label>Повторять каждый день</ion-label>
+            <div slot="end" class="is-list-vertical-buttons" no-margin>
+                <ion-checkbox></ion-checkbox>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Пуш-уведомление</ion-label>
+            <div slot="end" class="is-list-vertical-buttons" no-margin>
+                <ion-checkbox></ion-checkbox>
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-list lines="none" padding no-margin class="is-list-buttons is-list-transparent" style="margin-bottom: unset;">
+        <ion-item button detail="false" style="width: 44%; float: left; border-radius: 10px; text-align: center; margin: 10px; border: 1px solid  lightgrey" (click)="closeModal()">
+            <ion-label>Отмена</ion-label>
+        </ion-item>
+        <ion-item color="primary" button detail="false" style="width: 44%; --border-radius: 10px; text-align: center; margin: 10px;">
+            <ion-label>Готово</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
