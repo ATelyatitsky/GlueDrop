@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SignUpService} from '../shared/service/sign-up.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,10 @@ export class LoginPage implements OnInit {
 
   public passwordType: string;
 
-  constructor() { }
+  constructor(public signUpService: SignUpService) { }
 
   ngOnInit() {
+
   }
 
   togglePasswordType() {

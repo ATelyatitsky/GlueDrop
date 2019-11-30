@@ -13,20 +13,20 @@
       <ion-label text-uppercase="true">Профиль</ion-label>
     </ion-item-divider>
     <ion-item>
-      <ion-icon slot="start" name="person"></ion-icon>
-      <ion-input placeholder="Имя пользователя"></ion-input>
+      <ion-icon slot="start" name="person" ></ion-icon>
+      <ion-input placeholder="Имя пользователя*" required="true" [(ngModel)]="personData.loginName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon slot="start" name="mail"></ion-icon>
-      <ion-input placeholder="Email"></ion-input>
+      <ion-input placeholder="Email*" [(ngModel)]="loginData.login"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon slot="start" name="lock"></ion-icon>
-      <ion-input type="password" placeholder="Пароль"></ion-input>
+      <ion-input type="password" required="true" placeholder="Пароль*" [(ngModel)]="loginData.password"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon slot="start" name="lock"></ion-icon>
-      <ion-input type="password" placeholder="Проверка пароля"></ion-input>
+      <ion-input type="password" required="true" placeholder="Проверка пароля" [(ngModel)]="checkPassword"></ion-input>
     </ion-item>
   </ion-list>
 
@@ -37,16 +37,16 @@
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
       <ion-label style="color: #344B59; font-weight: lighter">Дата рождения</ion-label>
-      <ion-datetime displayFormat="DD.MM.YYYY" pickerFormat="DD.MMMM.YYYY" cancelText="Отмена" doneText="Применить"></ion-datetime>
+      <ion-datetime [monthNames]="customMonthName" displayFormat="DD.MM.YYYY" pickerFormat="DD.MMMM.YYYY" cancelText="Отмена" doneText="Применить" [max]="maxDate" [(ngModel)]="personData.birthDate"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-icon slot="start" name="heart-half"></ion-icon>
       <ion-label>Тип диабета</ion-label>
-      <ion-segment class="light-mint-color" value="II" style="width: 60%">
-        <ion-segment-button value="I">
+      <ion-segment class="light-mint-color" [(ngModel)]="personData.diabetType" style="width: 60%">
+        <ion-segment-button value="1">
           <ion-label>I</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="II">
+        <ion-segment-button value="2">
           <ion-label>II</ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -54,11 +54,11 @@
     <ion-item>
       <ion-icon slot="start" name="transgender"></ion-icon>
       <ion-label>Пол</ion-label>
-      <ion-segment class="light-mint-color" value="М" style="width: 60%">
-        <ion-segment-button value="М">
+      <ion-segment class="light-mint-color" [(ngModel)]="personData.gender" style="width: 60%">
+        <ion-segment-button value="1">
           <ion-label>М</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="Ж">
+        <ion-segment-button value="2">
           <ion-label>Ж</ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -72,9 +72,9 @@
     <ion-item>
       <ion-label >Углеводов в ХЕ</ion-label>
       <ion-buttons slot="end">
-        <ion-text >12</ion-text>
-        <ion-button> <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
-        <ion-button> <ion-icon slot="icon-only" name="remove"></ion-icon></ion-button>
+        <ion-text>{{personData.carbohydrates}}</ion-text>
+        <ion-button (click)="addCarbohydrates()"> <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
+        <ion-button (click)="removeCarbohydrates()"> <ion-icon slot="icon-only" name="remove"></ion-icon></ion-button>
       </ion-buttons>
     </ion-item>
     <ion-item>
@@ -101,7 +101,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list lines="none" no-margin class="is-list-buttons" style="padding: 0 16px">
+  <ion-list lines="none" no-margin class="is-list-buttons" style="padding: 0 16px" (click)="signUp()">
     <ion-item color="primary" button detail="true">
       Зарегистрироваться
     </ion-item>

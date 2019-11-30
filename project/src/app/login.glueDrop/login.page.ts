@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {SignUpService} from '../shared/service/sign-up.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login-background',
@@ -10,7 +12,10 @@ export class LoginPage implements OnInit {
 
   public passwordType: string;
 
-  constructor(private router: Router) { }
+  public email: string;
+  public password: string;
+
+  constructor(private router: Router, public signUpService: SignUpService, public toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -21,7 +26,22 @@ export class LoginPage implements OnInit {
   }
 
   public login(): void {
-    this.router.navigate(['/cardsGlueDrop']);
+    const personModelId: number =  this.signUpService.login(this.email, this.password);
+    if (personModelId !== -1) {
+      this.router.navigate(['/cardsGlueDrop']);
+    } else {
+      this.presentToast();
+    }
+
+  }
+
+  public async presentToast(): Promise<void> {
+    const toast = await this.toastController.create({
+      message: 'Учатная запись не найдена.',
+      duration: 2000,
+      color: 'danger'
+    });
+    toast.present();
   }
 
   public signUp(): void {
