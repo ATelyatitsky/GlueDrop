@@ -40,7 +40,7 @@ export class SignUpService {
             if (key === 'person') {
                 this.personDataArray = plainToClass<any, any>(PersonModel, val);
             } else {
-                this.loginData = plainToClass<any, any>(LoginModel, val);
+                this.loginData = plainToClass<any, any>(LoginModel, val) || [];
             }
         }).catch((error) => {
             console.log('get error for ' + key + '', error);

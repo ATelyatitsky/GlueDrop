@@ -25,8 +25,8 @@ export class LoginPage implements OnInit {
     this.passwordType = (this.passwordType === 'password') ? 'text' : 'password';
   }
 
-  public login(): void {
-    const personModelId: number =  this.signUpService.login(this.email, this.password);
+  public async login(): Promise<void> {
+    const personModelId: number =  await this.signUpService.login(this.email, this.password);
     if (personModelId !== -1) {
       this.router.navigate(['/cardsGlueDrop']);
     } else {
