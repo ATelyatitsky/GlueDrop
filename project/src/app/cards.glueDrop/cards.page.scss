@@ -36,3 +36,7 @@ ion-avatar {
   margin: auto;
   cursor: pointer;
 }
+
+.borderSelected {
+  border: 1px solid  var(--ion-color-light, #f4f5f8);
+}

@@ -2,8 +2,6 @@ import {Type} from '@angular/core';
 
 export class PersonModel {
     public id: number;
-    public loginId: number;
-
     // Имя человека
     public loginName: string;
 
@@ -18,7 +16,6 @@ export class PersonModel {
 
     public constructor() {
         this.id = 0;
-        this.loginId = 0;
         this.loginName = '';
         this.birthDate = new Date(1900, 1, 1);
         this.gender = '1';

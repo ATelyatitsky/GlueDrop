@@ -4,11 +4,11 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list no-margin>
+    <ion-list>
         <ion-item>
             <ion-label class="text-color">Категория</ion-label>
             <ion-icon mode="md" size="small" slot="end" name="radio-button-on" style="margin-left: 10px;"></ion-icon>
-            <ion-select no-padding interface="action-sheet" placeholder="Категория" [value]="typeNotification.toString()" cancelText="Отменить">
+            <ion-select interface="action-sheet" placeholder="Категория" [value]="typeNotification.toString()" cancelText="Отменить">
                 <ion-select-option value="1">Сахар</ion-select-option>
                 <ion-select-option value="2">Инсулин</ion-select-option>
                 <ion-select-option value="3">Еда</ion-select-option>
@@ -17,7 +17,7 @@
         </ion-item>
         <ion-item>
             <ion-label class="text-color">Цель:</ion-label>
-            <ion-input slot="end" [value]="mainValue" placeholder="Введите название цели"></ion-input>
+            <ion-input slot="end" [value]="mainValue" placeholder="Введите название цели" text-right no-padding></ion-input>
         </ion-item>
         <ion-item>
             <ion-label class="text-color">Время цели:</ion-label>
@@ -62,10 +62,10 @@
         </ion-item>
     </ion-list>
     <ion-list lines="none" padding no-margin class="is-list-buttons is-list-transparent" style="margin-bottom: unset;">
-        <ion-item button detail="false" style="width: 44%; float: left; border-radius: 10px; text-align: center; margin: 10px; border: 1px solid  lightgrey" (click)="closeModal()">
+        <ion-item button detail="false" text-center style="width: 45%; float: left; border-radius: 10px; border: 1px solid  lightgrey" (click)="closeModal()">
             <ion-label>Отмена</ion-label>
         </ion-item>
-        <ion-item color="primary" button detail="false" style="width: 44%; --border-radius: 10px; text-align: center; margin: 10px;">
+        <ion-item color="primary" button detail="false" text-center style="width: 50%; border-radius: 10px; margin-right: 0;margin-left: auto;">
             <ion-label>Готово</ion-label>
         </ion-item>
     </ion-list>

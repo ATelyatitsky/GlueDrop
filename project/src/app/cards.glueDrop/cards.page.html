@@ -11,50 +11,53 @@
   <div class="is-payment-cards is-card-unbordered">
         <ion-card no-padding style="width: unset; margin: 10px; border-radius: 20px;">
           <ion-item mode="ios" style="border-bottom: 1px solid var(--ion-color-is-mute-light);">
-            <ion-label style="margin: auto;" text-center="true">Сахар</ion-label>
+            <ion-label style="margin: auto;" text-center="true">{{selectedMood}}</ion-label>
           </ion-item>
 
           <ion-card-content no-padding style="padding-top: unset">
             <ion-item style="--padding-start: unset">
-              <ion-avatar>
+              <ion-avatar [ngClass]="{borderSelected: selectedMood === 'Сахар'}" (click)="changeSelectedMood('Сахар')">
                 <img src="assets/imgs/glucose_meter.png">
               </ion-avatar>
-              <ion-avatar>
+              <ion-avatar [ngClass]="{borderSelected: selectedMood === 'Еда'}" (click)="changeSelectedMood('Еда')">
                 <img src="assets/imgs/bread.png">
               </ion-avatar>
-              <ion-avatar>
+              <ion-avatar [ngClass]="{borderSelected: selectedMood === 'Короткий инсулин'}" (click)="changeSelectedMood('Короткий инсулин')">
                 <img src="assets/imgs/syringe1.png">
               </ion-avatar>
-              <ion-avatar>
+              <ion-avatar [ngClass]="{borderSelected: selectedMood === 'Продленный инсулин'}" (click)="changeSelectedMood('Продленный инсулин')">
                 <img src="assets/imgs/syringe.png">
               </ion-avatar>
-              <ion-avatar>
+              <ion-avatar [ngClass]="{borderSelected: selectedMood === 'Комментарий'}" (click)="changeSelectedMood('Комментарий')">
                 <img src="assets/imgs/comment.png">
               </ion-avatar>
             </ion-item>
             <ion-item>
-              <ion-datetime displayFormat="DD MMMM YYYY. в HH:mm" pickerFormat="DD.MMMM HH:mm" [(ngModel)]="dateNow" cancelText="Отмена" doneText="Применить"></ion-datetime>
+              <ion-datetime displayFormat="DD MMMM YYYY. в HH:mm" pickerFormat="DD.MMMM HH:mm" [monthNames]="customMonthName" [(ngModel)]="dateNow" cancelText="Отмена" doneText="Применить"></ion-datetime>
             </ion-item>
-            <ion-item text-center>
-              <ion-label no-margin>0.0 ммоль/л</ion-label>
+            <ion-item text-center *ngIf="selectedMood !== 'Комментарий'">
+              <ion-label no-margin>{{rowValue}} {{selectedUnit}}</ion-label>
             </ion-item>
-            <ion-item>
-              <ion-range min="0" max="20" step="1" value=0 pin="true" snaps="true" color="light" style="--knob-size: 11px; padding: unset">
-                <ion-label slot="start" no-margin padding-end>0</ion-label>
-                <ion-label slot="end" no-margin padding-start>+20</ion-label>
+            <ion-item *ngIf="selectedMood !== 'Комментарий'">
+              <ion-range mode="ios" min="{{minFirstRangeValue}}" max="{{maxFirstRangeValue}}" step="{{stepRange}}" pin="true" snaps="true" color="light" style="--knob-size: 11px; padding: unset" (ionChange)="changeFirstRange($event)" [(ngModel)]="selectedValue1">
+                <ion-label slot="start" no-margin padding-end>{{minFirstRangeValue}}</ion-label>
+                <ion-label slot="end" no-margin padding-start>{{maxFirstRangeValue}}+</ion-label>
               </ion-range>
             </ion-item>
-            <ion-item>
-              <ion-range min="0" max="9" step="1" value=0 pin="true" snaps="true" color="light" style="--knob-size: 11px; padding: unset">
+            <ion-item *ngIf="selectedMood !== 'Комментарий'">
+              <ion-range mode="ios" min="0" max="9" step="1" value=0 pin="true" snaps="true" color="light" style="--knob-size: 11px; padding: unset" (ionChange)="changeLastRange($event)" [(ngModel)]="selectedValue2">
                 <ion-label slot="start" no-margin padding-end>0</ion-label>
                 <ion-label slot="end" no-margin padding-start>0.9</ion-label>
               </ion-range>
             </ion-item>
+            <ion-item *ngIf="selectedMood === 'Комментарий'">
+              <ion-textarea placeholder="Введите комментарий к записи" [(ngModel)]="rowDiaryModel.comment"></ion-textarea>
+            </ion-item>
             <ion-list lines="none" padding no-margin class="is-list-buttons is-list-transparent">
-              <ion-item color="primary" button detail="false" style="width: 60%; float: left; --border-radius: 10px; text-align: center;">
+              <ion-item color="primary" button detail="false" style="width: 60%; float: left; --border-radius: 10px; text-align: center;" (click)="addNewRecord()">
                 <ion-label>Готово</ion-label>
               </ion-item>
-              <ion-item color="light" button detail="true" style="width: 35%; --border-radius: 10px; margin-right: 0;margin-left: auto;">
+              <ion-item color="light" button detail="true" style="width: 35%; --border-radius: 10px; margin-right: 0;margin-left: auto;" (click)="setNextMode()" [disabled]="selectedMood === 'Комментарий'">
                 <ion-label>Далее</ion-label>
               </ion-item>
             </ion-list>
