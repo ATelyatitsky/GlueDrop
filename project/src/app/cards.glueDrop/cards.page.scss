@@ -40,3 +40,10 @@ ion-avatar {
 .borderSelected {
   border: 1px solid  var(--ion-color-light, #f4f5f8);
 }
+
+.emptyRow {
+  margin: 25px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}

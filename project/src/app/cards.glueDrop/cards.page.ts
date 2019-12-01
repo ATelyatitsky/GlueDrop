@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
+import {ToastController} from '@ionic/angular';
+import {RowDiaryService} from '../shared/service/row-diary.service';
 
 @Component({
   selector: 'app-cards',
@@ -22,6 +24,7 @@ export class CardsPage implements OnInit {
   public modeArray: string[] = ['Сахар', 'Еда', 'Короткий инсулин', 'Продленный инсулин', 'Комментарий'];
 
   public rowDiaryModel: RowDiaryModel = new RowDiaryModel();
+  public rowDiaryModelArray: RowDiaryModel[] = [];
 
   slideOpts = {
     autoplay: false
@@ -29,15 +32,38 @@ export class CardsPage implements OnInit {
 
   public dateNow: string = new Date().toISOString();
 
-  constructor() {
+  constructor( public toastController: ToastController, public rowDiaryService: RowDiaryService) {
   }
 
   ngOnInit() {
+     this.rowDiaryService.getDiaryRowValueByPersonId().then((val) => {
+       this.rowDiaryModelArray =  val;
+    });
   }
 
-  public addNewRecord(): void {
+  public async addNewRecord(): Promise<void> {
+    if (this.rowDiaryModel.comment === '' && this.rowDiaryModel.extendedInsulinValue === '' &&
+        this.rowDiaryModel.shortInsulinValue === '' && this.rowDiaryModel.foodValue === '' &&
+        this.rowDiaryModel.sugarValue === '') {
+      this.presentToast('Нельзя добавить пустую запись', 'warning');
+      return;
+    }
     this.rowDiaryModel.date = new Date(this.dateNow);
     console.log(this.rowDiaryModel);
+    this.rowDiaryService.saveDiaryRow(this.rowDiaryModel);
+
+    this.rowDiaryModelArray = await this.rowDiaryService.getDiaryRowValueByPersonId();
+
+    this.presentToast('Запись добавлена');
+  }
+
+  public async presentToast(messageString: string, type: string = 'success'): Promise<void> {
+    const toast = await this.toastController.create({
+      message: messageString,
+      duration: 2000,
+      color: type
+    });
+    toast.present();
   }
 
   public setNextMode(): void {

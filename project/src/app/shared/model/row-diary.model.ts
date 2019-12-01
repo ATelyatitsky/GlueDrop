@@ -8,4 +8,16 @@ export class RowDiaryModel {
     public date: Date;
 
     public comment: string;
+
+    constructor() {
+    this.id = 0;
+    this.personId = 0;
+    this.sugarValue = '';
+    this.foodValue = '';
+    this.shortInsulinValue = '';
+    this.extendedInsulinValue = '';
+    this.date = new Date();
+
+    this.comment = '';
+    }
 }

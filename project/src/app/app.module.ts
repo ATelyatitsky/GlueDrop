@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage/';
 import {SignUpService} from './shared/service/sign-up.service';
+import {RowDiaryService} from './shared/service/row-diary.service';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {SignUpService} from './shared/service/sign-up.service';
     StatusBar,
     SplashScreen,
     SignUpService,
+    RowDiaryService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

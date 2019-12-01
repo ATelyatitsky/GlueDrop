@@ -21,9 +21,6 @@ export class SignUpService {
     public personDataArray: any = [];
 
     public constructor(private storage: Storage) {
-        // this.setValue('login', this.loginDataArray);
-        // this.getValue('login');
-
     }
 
     // set a key/value
@@ -67,7 +64,7 @@ export class SignUpService {
         if (this.loginData.length !== 0) {
             return this.loginData[this.loginData.length - 1].personModelId;
         } else {
-            return 1;
+            return 0;
         }
 
     }
@@ -79,6 +76,12 @@ export class SignUpService {
 
     public savePersonData(personData: PersonModel): void {
         this.personDataArray.push(personData);
-        this.setValue('person', this.loginDataArray);
+        this.setValue('person', this.personDataArray);
+    }
+
+    public getPersonModelId(): Promise<number> {
+        return this.storage.get('personModelId').then((val: number) => {
+           return val || 0;
+        });
     }
 }
