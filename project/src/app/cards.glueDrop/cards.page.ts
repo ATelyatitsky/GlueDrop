@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {ToastController} from '@ionic/angular';
 import {RowDiaryService} from '../shared/service/row-diary.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -32,7 +33,7 @@ export class CardsPage implements OnInit {
 
   public dateNow: string = new Date().toISOString();
 
-  constructor( public toastController: ToastController, public rowDiaryService: RowDiaryService) {
+  constructor(public toastController: ToastController, public rowDiaryService: RowDiaryService, private router: Router) {
   }
 
   ngOnInit() {
@@ -122,4 +123,12 @@ export class CardsPage implements OnInit {
     }
   }
 
+  public async deleteRow(index: number): Promise<void> {
+    this.rowDiaryModelArray = await this.rowDiaryService.deleteDiaryRow(this.rowDiaryModelArray[index].id);
+    console.log(this.rowDiaryModelArray);
+  }
+
+  public goToDashboard(): void {
+    this.router.navigate(['/dashboardGlueDrop']);
+  }
 }

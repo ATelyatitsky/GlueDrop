@@ -49,4 +49,11 @@ export class RowDiaryService {
         const personId: number = await this.getPersonModelId('personModelId');
         return this.rowDiaryModelArray.filter((row: RowDiaryModel) => row.personId === personId);
     }
+
+    public async deleteDiaryRow(id: number): Promise<RowDiaryModel[]> {
+        await this.getDiaryRowValue('diary');
+        this.rowDiaryModelArray = this.rowDiaryModelArray.filter((row: RowDiaryModel) => row.id !== id);
+        await this.setValue('diary', this.rowDiaryModelArray);
+        return this.getDiaryRowValueByPersonId();
+    }
 }

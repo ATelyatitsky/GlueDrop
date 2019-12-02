@@ -22,3 +22,28 @@ ion-item {
 span {
   color: white !important;
 }
+
+.emptyRow {
+  margin: 25px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+ion-datetime {
+  margin: auto;
+  font-size: 12px;
+  padding: 4px;
+  color: white;
+  border-radius: 10px;
+}
+
+.date-row-item {
+  --background: transparent;
+  --border-color: transparent;
+  border: 1px solid #61CFE9;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  border-radius: 10px;
+}

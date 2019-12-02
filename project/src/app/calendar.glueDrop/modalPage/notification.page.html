@@ -8,7 +8,7 @@
         <ion-item>
             <ion-label class="text-color">Категория</ion-label>
             <ion-icon mode="md" size="small" slot="end" name="radio-button-on" style="margin-left: 10px;"></ion-icon>
-            <ion-select interface="action-sheet" placeholder="Категория" [value]="typeNotification.toString()" cancelText="Отменить">
+            <ion-select interface="action-sheet" placeholder="Категория" [(ngModel)]="notificationModel.category" cancelText="Отменить">
                 <ion-select-option value="1">Сахар</ion-select-option>
                 <ion-select-option value="2">Инсулин</ion-select-option>
                 <ion-select-option value="3">Еда</ion-select-option>
@@ -17,11 +17,11 @@
         </ion-item>
         <ion-item>
             <ion-label class="text-color">Цель:</ion-label>
-            <ion-input slot="end" [value]="mainValue" placeholder="Введите название цели" text-right no-padding></ion-input>
+            <ion-input slot="end" [(ngModel)]="notificationModel.goal" placeholder="Введите название цели" text-right no-padding></ion-input>
         </ion-item>
         <ion-item>
             <ion-label class="text-color">Время цели:</ion-label>
-            <ion-datetime displayFormat="DD.MM.YYYY, HH:mm" pickerFormat="DD MMMM HH:mm" [(ngModel)]="dateString" cancelText="Отмена" doneText="Применить"></ion-datetime>
+            <ion-datetime displayFormat="DD.MM.YYYY, HH:mm" pickerFormat="DD MMMM HH:mm" [(ngModel)]="notificationModel.date.toISOString" cancelText="Отмена" doneText="Применить"></ion-datetime>
         </ion-item>
         <div style="padding-left: 16px; padding-right: 8px">
             <div>
@@ -51,13 +51,13 @@
         <ion-item>
             <ion-label>Повторять каждый день</ion-label>
             <div slot="end" class="is-list-vertical-buttons" no-margin>
-                <ion-checkbox></ion-checkbox>
+                <ion-checkbox [(ngModel)]="notificationModel.daily"></ion-checkbox>
             </div>
         </ion-item>
         <ion-item>
             <ion-label>Пуш-уведомление</ion-label>
             <div slot="end" class="is-list-vertical-buttons" no-margin>
-                <ion-checkbox></ion-checkbox>
+                <ion-checkbox [(ngModel)]="notificationModel.pushNotification"></ion-checkbox>
             </div>
         </ion-item>
     </ion-list>
@@ -65,7 +65,7 @@
         <ion-item button detail="false" text-center style="width: 45%; float: left; border-radius: 10px; border: 1px solid  lightgrey" (click)="closeModal()">
             <ion-label>Отмена</ion-label>
         </ion-item>
-        <ion-item color="primary" button detail="false" text-center style="width: 50%; border-radius: 10px; margin-right: 0;margin-left: auto;">
+        <ion-item color="primary" button detail="false" text-center style="width: 50%; border-radius: 10px; margin-right: 0;margin-left: auto;" (click)="setNotification()">
             <ion-label>Готово</ion-label>
         </ion-item>
     </ion-list>

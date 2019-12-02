@@ -12,6 +12,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage/';
 import {SignUpService} from './shared/service/sign-up.service';
 import {RowDiaryService} from './shared/service/row-diary.service';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {RowDiaryService} from './shared/service/row-diary.service';
     SplashScreen,
     SignUpService,
     RowDiaryService,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
