@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CalendarPage } from './calendar.page';
 import {NotificationPage} from './modalPage/notification.page';
+import {NotificationService} from '../shared/service/notification.service';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [CalendarPage, NotificationPage],
-  entryComponents: [NotificationPage]
+  entryComponents: [NotificationPage],
+  providers: [NotificationService]
 })
 export class CalendarPageModule {}

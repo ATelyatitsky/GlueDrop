@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import {LoginModel} from '../model/login.model';
 import {plainToClass} from 'class-transformer';
 import {PersonModel} from '../model/person.model';
+import {NetworkService} from './network.service';
 
 
 @Injectable()

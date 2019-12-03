@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, ModalController, Platform} from '@ionic/angular';
+import {AlertController, ModalController, Platform, ToastController} from '@ionic/angular';
 import {NotificationPage} from './modalPage/notification.page';
 import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
+import {NotificationService} from '../shared/service/notification.service';
+import {NotificationModel} from './modalPage/notification.model';
 
 @Component({
   selector: 'app-calendar',
@@ -10,8 +12,24 @@ import {Router} from '@angular/router';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+  public notificationModelArray: NotificationModel[] = [];
+  public notificationDone: NotificationModel[] = [];
+  public notificationUnDone: NotificationModel[] = [];
 
-  constructor(public modalController: ModalController, private plt: Platform, private localNotification: LocalNotifications, private router: Router) {
+  public sugarCount = 0;
+  public insulinCount = 0;
+  public foodCount = 0;
+
+  public sugarCountDone = 0;
+  public insulinCountDone = 0;
+  public foodCountDone = 0;
+
+  public dateNow: string = new Date().toISOString();
+
+  public customMonthName: string[] = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
+
+  constructor(public modalController: ModalController, private plt: Platform, private localNotification: LocalNotifications,
+              private router: Router, private notificationService: NotificationService, public toastController: ToastController) {
     this.plt.ready().then(() => {
       this.localNotification.on('click').subscribe(res => {
         const url = res.data ? res.data.page : '/';
@@ -26,9 +44,24 @@ export class CalendarPage implements OnInit {
 }
 
   ngOnInit() {
+    this.getNotification();
   }
 
-  public dateNow: string = new Date().toISOString();
+  public getNotification(): void {
+    this.notificationService.getNotificationByPersonId().then(val => {
+      this.notificationModelArray = val;
+      this.notificationDone = this.notificationModelArray.filter((note: NotificationModel) => note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily));
+      this.notificationUnDone = this.notificationModelArray.filter((note: NotificationModel) => !note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily));
+
+      this.sugarCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1').length;
+      this.insulinCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2').length;
+      this.foodCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3').length;
+
+      this.sugarCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1' && note.isDone).length;
+      this.insulinCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2' && note.isDone).length;
+      this.foodCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3' && note.isDone).length;
+    });
+  }
 
   public async openModal(data: number): Promise<void> {
     const modal = await this.modalController.create({
@@ -39,14 +72,21 @@ export class CalendarPage implements OnInit {
     });
     await modal.present();
     const notification =  await modal.onWillDismiss();
-    console.log(notification.data.notification);
+    this.setNotification(notification.data.notification);
   }
 
-  public sheduleNotification(): void {
+  public setNotification(notification: NotificationModel): void {
+    this.scheduleNotification(notification.goal, notification.date);
+    this.notificationService.saveNotification(notification);
+    this.presentToast('Цель добавлена');
+    this.getNotification();
+  }
+
+  public scheduleNotification(goal: string, date: Date): void {
     this.localNotification.schedule({
       id: 1,
-      title: 'Измерить сахар',
-      text: 'Цель на 20:00 - Измерить сахар',
+      title: goal,
+      text: 'Цель на ' + date.toLocaleDateString() + 'в ' + date.toLocaleTimeString() + ' - ' + goal,
       data: {page: '/cardsGlueDrop'},
       // trigger: {every: {hour: 20, minute: 0} }
       trigger: {in: 10, unit: ELocalNotificationTriggerUnit.SECOND},
@@ -54,4 +94,24 @@ export class CalendarPage implements OnInit {
     });
   }
 
+  public async presentToast(messageString: string, type: string = 'success'): Promise<void> {
+    const toast = await this.toastController.create({
+      message: messageString,
+      duration: 2000,
+      color: type
+    });
+    toast.present();
+  }
+
+  public async doneNotification(index: number): Promise<void> {
+    await this.notificationService.doneNotification(this.notificationUnDone[index]);
+    this.presentToast('Цель выполнена');
+    this.getNotification();
+  }
+
+  public async deleteNotification(index: number): Promise<void> {
+    await this.notificationService.deleteNotification(this.notificationUnDone[index]);
+    this.presentToast('Цель удалена');
+    this.getNotification();
+  }
 }

@@ -12,6 +12,7 @@ export class NotificationPage implements OnInit {
     @Input() typeNotification: number;
 
     public notificationModel: NotificationModel = new NotificationModel();
+    public customMonthName: string[] = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
 
     public dateNow: Date = new Date();
     public dateString: string;
@@ -33,9 +34,8 @@ export class NotificationPage implements OnInit {
     }
 
     public setNotification(): void {
-        console.log(this.notificationModel);
         this.modalController.dismiss({
-            notification: this.notificationModel
+            notification: this.notificationModel,
         });
     }
 
@@ -44,9 +44,44 @@ export class NotificationPage implements OnInit {
             case 1: this.mainValue = 'Измерить сахар'; break;
             case 2: this.mainValue = 'Поставить инсулин'; break;
             case 3: this.mainValue = 'Прием пищи'; break;
-            case 4: this.mainValue = ''; break;
         }
         this.notificationModel.category = typeNotification.toString();
         this.notificationModel.goal = this.mainValue;
+    }
+
+    public changeDate() {
+        this.notificationModel.date = new Date(this.dateString);
+    }
+
+    public changeDateBy(type: number) {
+        switch (type) {
+            case 1: {
+                this.notificationModel.date = new Date();
+                this.notificationModel.date.setMinutes(this.notificationModel.date.getMinutes() + 15);
+                break;
+            }
+            case 2: {
+                this.notificationModel.date = new Date();
+                this.notificationModel.date.setMinutes(this.notificationModel.date.getMinutes() + 30);
+                break;
+            }
+            case 3: {
+                this.notificationModel.date = new Date();
+                this.notificationModel.date.setHours(this.notificationModel.date.getHours() + 1);
+                break;
+            }
+            case 4: {
+                this.notificationModel.date = new Date();
+                this.notificationModel.date.setHours(this.notificationModel.date.getHours() + 1);
+                this.notificationModel.date.setMinutes(this.notificationModel.date.getMinutes() + 30);
+                break;
+            }
+            case 5: {
+                this.notificationModel.date = new Date();
+                this.notificationModel.date.setHours(this.notificationModel.date.getHours() + 2);
+                break;
+            }
+        }
+        this.dateString = this.notificationModel.date.toISOString();
     }
 }

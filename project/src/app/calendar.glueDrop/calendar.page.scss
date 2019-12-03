@@ -34,7 +34,7 @@ ion-button {
 ion-icon {
   position: absolute;
   bottom: 0;
-  right: 13%;
+  right: 22%;
   color: white;
 }
 
@@ -44,7 +44,14 @@ ion-icon {
 
 /deep/ .modal-wrapper {
   height: 85% !important;
-  width: 90% !important;
+  width: 95% !important;
+}
+
+.emptyRow {
+  margin: 25px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 @media only screen
@@ -60,7 +67,7 @@ and (max-device-width : 667px) {
 and (min-width : 414px)
 and (max-width : 736px) {
   /deep/ .modal-wrapper {
-    height: 65% !important;
+    height: 60% !important;
     width: 90% !important;
   }
 }

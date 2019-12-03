@@ -18,9 +18,11 @@ export class LoginPage implements OnInit {
   constructor(private router: Router, public signUpService: SignUpService, public toastController: ToastController) { }
 
   ngOnInit() {
-    if (this.signUpService.getPersonModelId().then((personModelId: number) => personModelId !== 0)) {
-      this.router.navigate(['/cardsGlueDrop']);
-    }
+    this.signUpService.getPersonModelId().then((personModelId: number) => {
+      if (personModelId !== 0) {
+        this.router.navigate(['/cardsGlueDrop']);
+      }
+    });
   }
 
   togglePasswordType() {

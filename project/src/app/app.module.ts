@@ -13,6 +13,8 @@ import { IonicStorageModule } from '@ionic/storage/';
 import {SignUpService} from './shared/service/sign-up.service';
 import {RowDiaryService} from './shared/service/row-diary.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {Network} from '@ionic-native/network/ngx';
+import {NetworkService} from './shared/service/network.service';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
     SignUpService,
     RowDiaryService,
     LocalNotifications,
+    Network,
+    NetworkService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
