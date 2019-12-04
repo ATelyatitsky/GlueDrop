@@ -72,7 +72,7 @@
           <ion-item  style="border: unset">
             <ion-icon size="small" slot="start" name="time" style="margin-right: 8px"></ion-icon>
             <p text-wrap>{{row.date | date: 'HH:mm'}}</p>
-            <p slot="end" text-wrap>{{row.date | date: 'dd.MM.YYYY'}}</p>
+            <p slot="end" text-wrap>{{row.date.toLocaleDateString()}}</p>
           </ion-item>
           <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
             <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/glucose_meter.png"></ion-img>
