@@ -1,3 +1,6 @@
+import {Type} from 'class-transformer';
+
+
 export class RowDiaryModel {
     public id: number;
     public personId: number;
@@ -5,6 +8,9 @@ export class RowDiaryModel {
     public foodValue: string;
     public shortInsulinValue: string;
     public extendedInsulinValue: string;
+
+
+    @Type(() => Date)
     public date: Date;
 
     public comment: string;

@@ -86,7 +86,7 @@ export class CalendarPage implements OnInit {
     this.localNotification.schedule({
       id: 1,
       title: goal,
-      text: 'Цель на ' + date.toLocaleDateString() + 'в ' + date.toLocaleTimeString() + ' - ' + goal,
+      text: 'Цель на ' + date.toLocaleDateString() + ' в ' + date.toLocaleTimeString() + ' - ' + goal,
       data: {page: '/cardsGlueDrop'},
       // trigger: {every: {hour: 20, minute: 0} }
       trigger: {in: 10, unit: ELocalNotificationTriggerUnit.SECOND},
