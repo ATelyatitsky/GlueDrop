@@ -15,6 +15,7 @@ import {RowDiaryService} from './shared/service/row-diary.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {NetworkService} from './shared/service/network.service';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {NetworkService} from './shared/service/network.service';
     LocalNotifications,
     Network,
     NetworkService,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

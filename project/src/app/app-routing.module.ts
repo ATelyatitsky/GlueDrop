@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'cardsGlueDrop', loadChildren: './cards.glueDrop/cards.module#CardsPageModule' },
   { path: 'dashboardGlueDrop', loadChildren: './dashboard.glueDrop/dashboard.module#DashboardPageModule' },
   { path: 'calendarGlueDrop', loadChildren: './calendar.glueDrop/calendar.module#CalendarPageModule' },
+  { path: 'exportDataGlueDrop', loadChildren: './exportDataGlueDrop/empty-notification-third.module#EmptyNotificationThirdPageModule' },
   {
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'

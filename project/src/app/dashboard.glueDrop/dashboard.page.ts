@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {RowDiaryService} from '../shared/service/row-diary.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -117,7 +118,7 @@ export class DashboardPage implements OnInit {
   ];
   doughnutChartLegend = false;
 
-  constructor(public rowDiaryService: RowDiaryService) { }
+  constructor(public rowDiaryService: RowDiaryService, private router: Router) { }
 
   ngOnInit() {
     this.rowDiaryService.getDiaryRowValueByPersonId().then((val) => {
@@ -191,13 +192,8 @@ export class DashboardPage implements OnInit {
     ];
   }
 
-  // events
-  chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  chartHovered(e: any): void {
-    console.log(e);
+  public routeToExportData(): void {
+    this.router.navigate(['/exportDataGlueDrop']);
   }
 
 }

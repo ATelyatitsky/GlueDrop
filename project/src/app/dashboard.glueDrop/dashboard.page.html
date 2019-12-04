@@ -4,6 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Статистика</ion-title>
+    <ion-buttons slot="end" (click)="routeToExportData()">
+      <ion-icon size="large" name="cloud-download" ></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -25,7 +28,7 @@
     <ion-datetime displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="dateNow" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
   </ion-item>
   <div>
-    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
   </div>
   <div>
     <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 25%; float: left; display: inline-block">

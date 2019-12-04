@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Экспорт данных</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class=" theme-{{env.theme}}">
+    <p no-margin padding-top style="width: 50%; margin: auto;  text-align: center; color: black">
+      Экспортируйте нужные вам данные в файл для работы с ними вне приложения
+    </p>
+    <p no-margin padding-top style="width: 50%; margin: auto;  text-align: center">
+      Период экспорта
+    </p>
+    <ion-toolbar mode="ios" style="--background: transparent; width: 90%; margin: auto;">
+      <ion-segment mode="ios" style="--border-color: black;" [(ngModel)]="filterDaySegment" (ngModelChange)="setNewDateDiapason()">
+        <ion-segment-button mode="ios" value="2week" checked>
+          <ion-label>2 недели</ion-label>
+        </ion-segment-button>
+        <ion-segment-button mode="ios" value="Month">
+          <ion-label>Месяц</ion-label>
+        </ion-segment-button>
+        <ion-segment-button mode="ios" value="3Month">
+          <ion-label>3 месяца</ion-label>
+        </ion-segment-button>
+        <ion-segment-button mode="ios" value="Other">
+          <ion-label>Другое</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <ion-item class="date-row-item" style="width: 55%; margin: auto; padding-top: 16px">
+      От: <ion-datetime no-padding style="padding-left: 5px" displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="dateFrom" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
+    </ion-item>
+    <ion-item class="date-row-item" style="width: 55%; margin: auto; padding-top: 16px">
+      До: <ion-datetime no-padding style="padding-left: 5px" displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="dateTo" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
+    </ion-item>
+
+    <p no-margin padding-top padding-bottom style="width: 60%; margin: auto;  text-align: center">
+      Вы экспортируете {{rowDiaryModel.length}} записей
+    </p>
+
+    <ion-item mode="ios" button detail="false" text-center style="width: 90%; border-radius: 10px; border: 1px solid  lightgrey; margin: auto" (click)="exportData()">
+      <ion-label>Экспорт в CSV</ion-label>
+    </ion-item>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+:host {
+  background-size: cover;
+  background-position: center;
+  --background: transparent;
+  background-repeat: space;
+  background-image: url("assets/imgs/forest.png");
+
+  ion-content, ion-toolbar {
+    --background: transparent;
+    --ion-toolbar-border-color: transparent !important;
+    color: black;
+  }
+}
+ion-item {
+  --min-height: unset;
+  --border-color: transparent;
+}
+
+.is-empty-state-content-background {
+  height: 100%;
+  text-align:center;
+
+  img {
+    width: 80%;
+    max-width: 370px;
+    margin-top: 10%;
+  }
+}
+
+.is-empty-state-content-background.theme-dark {
+  background: black;
+}
+
+.is-empty-state-content-background.theme-light {
+  background: #F6F9FA;
+}

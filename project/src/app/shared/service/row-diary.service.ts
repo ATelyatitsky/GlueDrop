@@ -56,4 +56,9 @@ export class RowDiaryService {
         await this.setValue('diary', this.rowDiaryModelArray);
         return this.getDiaryRowValueByPersonId();
     }
+
+    public async findRowByDate(dateFrom: Date, dateTo: Date): Promise<RowDiaryModel[]> {
+        const rowDiaryModel: RowDiaryModel[] = await this.getDiaryRowValueByPersonId();
+        return rowDiaryModel.filter((row) => row.date.getTime() >= dateFrom.getTime() && row.date.getTime() <= dateTo.getTime());
+    }
 }
