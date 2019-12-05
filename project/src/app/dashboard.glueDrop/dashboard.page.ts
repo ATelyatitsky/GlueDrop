@@ -121,7 +121,7 @@ export class DashboardPage implements OnInit {
   constructor(public rowDiaryService: RowDiaryService, private router: Router) { }
 
   ngOnInit() {
-    this.rowDiaryService.getDiaryRowValueByPersonId().then((val) => {
+    this.rowDiaryService.getDiaryRowValueByPersonId().then((val: RowDiaryModel[]) => {
       this.rowDiaryModelArray =  val;
       this.changeDate();
     });

@@ -53,13 +53,13 @@ export class CalendarPage implements OnInit {
       this.notificationDone = this.notificationModelArray.filter((note: NotificationModel) => note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily));
       this.notificationUnDone = this.notificationModelArray.filter((note: NotificationModel) => !note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily));
 
-      this.sugarCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1').length;
-      this.insulinCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2').length;
-      this.foodCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3').length;
+      this.sugarCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1' &&  (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
+      this.insulinCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2' && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
+      this.foodCount = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3' && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
 
-      this.sugarCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1' && note.isDone).length;
-      this.insulinCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2' && note.isDone).length;
-      this.foodCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3' && note.isDone).length;
+      this.sugarCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '1' && note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
+      this.insulinCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '2' && note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
+      this.foodCountDone = this.notificationModelArray.filter((note: NotificationModel) => note.category === '3' && note.isDone && (note.date.toDateString() === new Date(this.dateNow).toDateString() || note.daily)).length;
     });
   }
 

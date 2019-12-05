@@ -1,8 +1,12 @@
+import {Type} from 'class-transformer';
+
 export class NotificationModel {
     public id: number;
     public personId: number;
     public category: string;
     public goal: string;
+
+    @Type(() => Date)
     public date: Date;
 
     public daily: boolean;

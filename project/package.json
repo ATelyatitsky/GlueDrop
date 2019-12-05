@@ -5,7 +5,8 @@
   "homepage": "http://ionicframework.com/",
   "scripts": {
     "ionic-start": "ionic serve --lab",
-    "ios-browser": "ionic cordova run browser -l --debug",
+    "build-browser": "ionic cordova build browser ",
+    "run-browser": "ionic cordova run browser ",
     "ios-build": "ionic cordova build ios",
     "ios-run": "ionic cordova run ios"
   },
