@@ -32,8 +32,7 @@ span {
 
 ion-datetime {
   margin: auto;
-  font-size: 12px;
-  padding: 4px;
+  font-size: 14px;
   color: white;
   border-radius: 10px;
 }
@@ -41,9 +40,16 @@ ion-datetime {
 .date-row-item {
   --background: transparent;
   --border-color: transparent;
-  border: 1px solid #61CFE9;
   width: 80%;
   text-align: center;
   margin: auto;
   border-radius: 10px;
+}
+
+.chartWrapper {
+  position: relative;
+}
+
+.chartAreaWrapper {
+  overflow-x: scroll;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {RowDiaryService} from '../shared/service/row-diary.service';
 import {Router} from '@angular/router';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +10,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+
+  constructor(public rowDiaryService: RowDiaryService, private router: Router) { }
   public rowDiaryModelArray: RowDiaryModel[] = [];
   public filteredDiaryModelArray: RowDiaryModel[] = [];
   public customMonthName: string[] = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
   public dateNow: string = new Date().toISOString();
+
+  public minWeekDate: string = new Date().toISOString();
+  public maxWeekDate: string = new Date().toISOString();
 
   public averageValue: string;
   public spreadValue: string;
@@ -25,8 +31,6 @@ export class DashboardPage implements OnInit {
   lineChartData: Array<any> = [
     { data: [10, 6, 10, 12, 8, 15, 1], label: 'Сахар', lineTension: 0 },
     { data: [8, 4, 7, 9, 10, 5, 3], label: 'ХЕ', lineTension: 0 },
-    { data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9], label: 'Высокий уровень сахара'},
-    { data: [4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5], label: 'Низкий уровень сахара'}
   ];
   lineChartLabels: Array<any> = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   lineChartOptions: any = {
@@ -37,6 +41,8 @@ export class DashboardPage implements OnInit {
     },
     animation: false,
     responsive: true,
+    showLines: true,
+    spanGaps: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{
@@ -61,9 +67,118 @@ export class DashboardPage implements OnInit {
           gridLines: {
             color: 'gray',
           },
+          // stacked: true
         },
       ],
     },
+    annotation: {
+  annotations: [
+      {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: '4.5',
+        borderColor: 'rgba(97,207,233,1)',
+        borderWidth: 2,
+        label: {
+          enabled: true,
+          backgroundColor: 'transparent',
+          fontColor: 'white',
+          content: 'Нижняя граница уровня сахара',
+          fontSize: 10,
+        }
+      },
+      {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: '9',
+        borderColor: 'rgba(255,137,192,1)',
+        borderWidth: 2,
+        label: {
+          enabled: true,
+          backgroundColor: 'transparent',
+          fontColor: 'white',
+          content: 'Верхняя граница уровня сахара',
+          fontSize: 10,
+        }
+      },
+      ],
+    }
+  };
+  public lineChartPlugins = [pluginAnnotations];
+
+  lineChartOptions1: any = {
+    legend: {
+      labels: {
+        fontColor: 'white', // legend color (can be hexadecimal too)
+      },
+    },
+    animation: false,
+    responsive: false,
+    showLines: true,
+    spanGaps: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{
+        id: 'x-axis-0',
+        position: 'bottom',
+        ticks: {
+          fontColor: 'white',
+        },
+        gridLines: {
+          color: 'transparent',
+        },
+      }],
+      yAxes: [
+        {
+          id: 'y-axis-01',
+          position: 'left',
+          ticks: {
+            stepSize: 4,
+            beginAtZero: true,
+            fontColor: 'white',
+          },
+          gridLines: {
+            color: 'gray',
+          },
+        },
+      ],
+    },
+    annotation: {
+      annotations: [
+        {
+          type: 'line',
+          mode: 'horizontal',
+          scaleID: 'y-axis-01',
+          value: '4.5',
+          borderColor: 'rgba(97,207,233,1)',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            backgroundColor: 'transparent',
+            fontColor: 'white',
+            content: 'Нижняя граница уровня сахара',
+            fontSize: 10,
+          }
+        },
+        {
+          type: 'line',
+          mode: 'horizontal',
+          scaleID: 'y-axis-01',
+          value: '9',
+          borderColor: 'rgba(255,137,192,1)',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            backgroundColor: 'transparent',
+            fontColor: 'white',
+            content: 'Верхняя граница уровня сахара',
+            fontSize: 10,
+          }
+        },
+      ]
+    }
   };
   lineChartColors: Array<any> = [
     {
@@ -78,18 +193,6 @@ export class DashboardPage implements OnInit {
       pointBackgroundColor: 'rgba(255,255,255,1)',
       pointBorderColor: '#FFDD7D'
     },
-    {
-      backgroundColor: 'transparent',
-      borderColor: 'rgba(255,137,192,1)',
-      pointBackgroundColor: 'rgba(255,137,192,1)',
-      pointBorderColor: 'rgba(255,137,192,1)'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: 'rgba(97,207,233,1)',
-      pointBackgroundColor: 'rgba(97,207,233,1)',
-      pointBorderColor: 'rgba(97,207,233,1)'
-    }
   ];
   lineChartLegend = false;
   lineChartType = 'line';
@@ -117,8 +220,7 @@ export class DashboardPage implements OnInit {
     }
   ];
   doughnutChartLegend = false;
-
-  constructor(public rowDiaryService: RowDiaryService, private router: Router) { }
+  public test = 1000;
 
   ngOnInit() {
     this.rowDiaryService.getDiaryRowValueByPersonId().then((val: RowDiaryModel[]) => {
@@ -156,11 +258,59 @@ export class DashboardPage implements OnInit {
 
       if (this.filterDaySegment === 'Day') {
         this.initChartData();
+
         this.filteredDiaryModelArray.forEach((currentValue: RowDiaryModel) => {
           const index: number = this.lineChartLabels.findIndex((elem: number) => elem === currentValue.date.getHours());
           this.lineChartData[0].data[index] = +currentValue.sugarValue;
-          this.lineChartData[1].data[index] = currentValue.foodValue !== '' ? +currentValue.foodValue : null;
+          this.lineChartData[1].data[index] = currentValue.foodValue !== '' && currentValue.foodValue !== '0.0' ? +currentValue.foodValue : null;
         });
+        this.filteredDiaryModelArray.reverse();
+      } else if (this.filterDaySegment === 'Week')  {
+        let i = 0;
+        this.initChartData();
+        this.lineChartLabels.length = 0;
+        const date: Date = new Date();
+        let averageValueArray: RowDiaryModel[] = [];
+        date.setDate(date.getDate() - 7);
+        do {
+          if (i !== 0) {
+            date.setDate(date.getDate() + 1);
+          }
+          const lengthChart = this.lineChartLabels.push(date.getDate());
+
+          averageValueArray = this.filteredDiaryModelArray.filter((element: RowDiaryModel) => element.date.toDateString() === date.toDateString());
+
+          if (averageValueArray.length > 0) {
+            this.lineChartData[0].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
+              return accumulator + +currentValue.sugarValue;
+            }, initialValue) / averageValueArray.length).toFixed(1);
+          }
+
+        }while (i++ < 7);
+        this.filteredDiaryModelArray.reverse();
+      } else if (this.filterDaySegment === 'Month') {
+        let i = 0;
+        this.initChartData();
+        this.lineChartLabels.length = 0;
+        const date: Date = new Date();
+        let averageValueArray: RowDiaryModel[] = [];
+        date.setMonth(date.getMonth() - 1);
+        do {
+          if (i !== 0) {
+            date.setDate(date.getDate() + 1);
+          }
+          const lengthChart = this.lineChartLabels.push(date.getDate());
+
+          averageValueArray = this.filteredDiaryModelArray.filter((element: RowDiaryModel) => element.date.toDateString() === date.toDateString());
+
+          if (averageValueArray.length > 0) {
+            this.lineChartData[0].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
+              return accumulator + +currentValue.sugarValue;
+            }, initialValue) / averageValueArray.length).toFixed(1);
+          }
+
+        }while (i++ < 31);
+        this.filteredDiaryModelArray.reverse();
       }
     } else {
       this.averageValue = '0.0';
@@ -174,22 +324,51 @@ export class DashboardPage implements OnInit {
   }
 
   private initChartData(): void {
-    this.lineChartLabels = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+    this.lineChartLabels.length = 0;
+    this.lineChartLabels.push(...[6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
 
     this.lineChartData = [
       {
-        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
         label: 'Сахар',
-        lineTension: 0
+        lineTension: 0,
       },
       {
-        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
         label: 'ХЕ',
         lineTension: 0
-      },
-      {data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9], label: 'Высокий уровень сахара'},
-      {data: [4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5], label: 'Низкий уровень сахара'}
-    ];
+      }];
+  }
+
+  public segmentChange(): void {
+    if (this.filterDaySegment === 'Day') {
+      this.changeDate();
+    } else if (this.filterDaySegment === 'Week') {
+      this.weekChange();
+    } else if (this.filterDaySegment === 'Month') {
+      this.monthChange();
+    }
+  }
+
+  public weekChange(): void {
+    const minDate: Date = new Date(new Date());
+    minDate.setDate(minDate.getDate() - 7);
+    this.minWeekDate = minDate.toISOString();
+
+    const maxDate: Date = new Date(this.maxWeekDate);
+    this.filteredDiaryModelArray = this.rowDiaryModelArray.filter((row: RowDiaryModel) => row.date.getTime() >= minDate.getTime() && row.date.getTime() <= maxDate.getTime());
+    this.calcStatistics();
+  }
+
+  public monthChange(): void {
+    this.maxWeekDate = new Date().toISOString();
+    const minDate: Date = new Date();
+    minDate.setMonth(minDate.getMonth() - 1);
+    this.minWeekDate = minDate.toISOString();
+
+    const maxDate: Date = new Date(this.maxWeekDate);
+    this.filteredDiaryModelArray = this.rowDiaryModelArray.filter((row: RowDiaryModel) => row.date.getTime() >= minDate.getTime() && row.date.getTime() <= maxDate.getTime());
+    this.calcStatistics();
   }
 
   public routeToExportData(): void {

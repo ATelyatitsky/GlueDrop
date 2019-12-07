@@ -38,7 +38,7 @@ export class CardsPage implements OnInit {
 
   ngOnInit() {
      this.rowDiaryService.getDiaryRowValueByPersonId().then((val) => {
-       this.rowDiaryModelArray =  val;
+       this.rowDiaryModelArray =  val.reverse();
     });
   }
 
@@ -50,10 +50,10 @@ export class CardsPage implements OnInit {
       return;
     }
     this.rowDiaryModel.date = new Date(this.dateNow);
-    console.log(this.rowDiaryModel);
+
     this.rowDiaryService.saveDiaryRow(this.rowDiaryModel);
 
-    this.rowDiaryModelArray = await this.rowDiaryService.getDiaryRowValueByPersonId();
+    this.rowDiaryModelArray = (await this.rowDiaryService.getDiaryRowValueByPersonId()).reverse();
 
     this.presentToast('Запись добавлена');
   }
@@ -124,7 +124,7 @@ export class CardsPage implements OnInit {
   }
 
   public async deleteRow(index: number): Promise<void> {
-    this.rowDiaryModelArray = await this.rowDiaryService.deleteDiaryRow(this.rowDiaryModelArray[index].id);
+    this.rowDiaryModelArray = (await this.rowDiaryService.deleteDiaryRow(this.rowDiaryModelArray[index].id)).reverse();
     console.log(this.rowDiaryModelArray);
   }
 

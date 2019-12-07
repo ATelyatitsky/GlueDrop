@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import {RowDiaryService} from '../shared/service/row-diary.service';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-empty-notification-third',
@@ -20,7 +21,7 @@ export class EmptyNotificationThirdPage implements OnInit {
 
   public rowDiaryModel: RowDiaryModel[] = [];
 
-  constructor(public rowDiaryService: RowDiaryService, public socialSharing: SocialSharing) { }
+  constructor(private router: Router, public rowDiaryService: RowDiaryService, public socialSharing: SocialSharing) { }
 
   ngOnInit() {
     const date = new Date();
@@ -51,6 +52,10 @@ export class EmptyNotificationThirdPage implements OnInit {
 
   public exportData(): void {
     this.socialSharing.share('test', null, null, null);
+  }
+
+  public backToDashboard(): void {
+    this.router.navigate(['/dashboardGlueDrop']);
   }
 
 }

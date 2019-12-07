@@ -76,19 +76,19 @@
           </ion-item>
           <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
             <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/glucose_meter.png"></ion-img>
-            <p text-wrap>{{row.sugarValue === '' ? '-' : row.sugarValue}}</p>
+            <p text-wrap>{{row.sugarValue === '' || row.sugarValue === '0.0' ? '-' : row.sugarValue}}</p>
           </ion-item>
           <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
             <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/bread.png"></ion-img>
-            <p text-wrap>{{row.foodValue === '' ? '-' : row.foodValue}}</p>
+            <p text-wrap>{{row.foodValue === '' || row.foodValue === '0.0' ? '-' : row.foodValue}}</p>
           </ion-item>
           <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
             <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/syringe1.png"></ion-img>
-            <p text-wrap>{{row.shortInsulinValue === '' ? '-' : row.shortInsulinValue}}</p>
+            <p text-wrap>{{row.shortInsulinValue === '' || row.shortInsulinValue === '0.0' ? '-' : row.shortInsulinValue}}</p>
           </ion-item>
           <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
             <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/syringe.png"></ion-img>
-            <p text-wrap>{{row.extendedInsulinValue === '' ? '-' : row.extendedInsulinValue}}</p>
+            <p text-wrap>{{row.extendedInsulinValue === '' || row.extendedInsulinValue === '0.0' ? '-' : row.extendedInsulinValue}}</p>
           </ion-item>
 
           <ion-item *ngIf="row.comment !== ''" mode="ios" style="border: unset;">

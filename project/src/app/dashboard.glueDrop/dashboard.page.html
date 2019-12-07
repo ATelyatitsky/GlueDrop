@@ -12,7 +12,7 @@
 
 <ion-content>
   <ion-toolbar mode="ios" style="--background: transparent;">
-    <ion-segment mode="ios" [(ngModel)]="filterDaySegment">
+    <ion-segment mode="ios" [(ngModel)]="filterDaySegment" (ngModelChange)="segmentChange()">
       <ion-segment-button mode="ios" value="Day" checked>
         <ion-label>День</ion-label>
       </ion-segment-button>
@@ -24,20 +24,32 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  <ion-item class="date-row-item">
-    <ion-datetime displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="dateNow" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
+  <ion-item class="date-row-item" *ngIf="filterDaySegment === 'Day'" style="width: 55%; margin: 10px auto;">
+    <span no-margin no-padding style="font-size: 14px">Дата:</span> <ion-datetime no-padding  displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="dateNow" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
   </ion-item>
-  <div>
-    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+  <div *ngIf="filterDaySegment === 'Week' || filterDaySegment === 'Month'" style="width: 91%; margin: 10px auto;">
+    <ion-item  class="date-row-item" style="width: 50%; display: inline-block;">
+      <span no-margin no-padding style="font-size: 14px">От:</span> <ion-datetime no-padding style="padding-left: 5px" displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="minWeekDate" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
+    </ion-item>
+    <ion-item class="date-row-item" style="width: 50%; display: inline-block">
+      <span no-margin no-padding style="font-size: 14px">До:</span> <ion-datetime no-padding style="padding-left: 5px" displayFormat="DD MMMM YYYY" pickerFormat="DD.MMMM.YYYY" [monthNames]="customMonthName" [(ngModel)]="maxWeekDate" (ngModelChange)="changeDate()" cancelText="Отмена" doneText="Применить"></ion-datetime>
+    </ion-item>
+  </div>
+  <div class="chartWrapper">
+    <div class="chartAreaWrapper">
+      <canvas *ngIf="filterDaySegment !== 'Month'" baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      <canvas *ngIf="filterDaySegment === 'Month'" baseChart width="1000" height="200" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions1" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+    </div>
+
   </div>
   <div>
-    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 25%; float: left; display: inline-block">
+    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 45%; float: left; display: inline-block">
     <ion-icon mode="md" size="small"  slot="start" style="color: #63d0c5; margin: 1% 2%;" name="radio-button-on"></ion-icon>
-      <p no-margin text-wrap style="color:white; --border-color: unset;">Сахар</p>
+      <p no-margin text-wrap style="color:white; --border-color: unset;">Сахар </p><span *ngIf="filterDaySegment === 'Week' || filterDaySegment === 'Month'" style="font-size: 14px; padding-left: 2px" > (ср.знач)</span>
     </ion-item>
-    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 17%; display: inline-block">
+    <ion-item mode="ios" style="--background: transparent; --border-style: none; width: 45%; display: inline-block">
       <ion-icon mode="md" size="small" slot="start" style="color: #FFDD7D; margin: 1% 2%;" name="radio-button-on"></ion-icon>
-      <p no-margin text-wrap style="color:white; --border-color: unset;">ХЕ</p>
+      <p no-margin text-wrap style="color:white; --border-color: unset;">ХЕ</p><span *ngIf="filterDaySegment === 'Week' || filterDaySegment === 'Month'" style="font-size: 14px; padding-left: 2px" > (ср.знач)</span>
     </ion-item>
   </div>
 
@@ -99,9 +111,7 @@
                 [chartType]="doughnutChartType"
                 [options]="doughnutChartOptions"
                 [colors]="doughnutChartColors"
-                [legend]="doughnutChartLegend"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)">
+                [legend]="doughnutChartLegend">
         </canvas>
       </ion-col>
     </ion-row>
@@ -126,19 +136,19 @@
                   </ion-item>
                   <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
                     <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/glucose_meter.png"></ion-img>
-                    <p text-wrap>{{row.sugarValue === '' ? '-' : row.sugarValue}}</p>
+                    <p text-wrap>{{row.sugarValue === '' || row.sugarValue === '0.0' ? '-' : row.sugarValue}}</p>
                   </ion-item>
                   <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
                     <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/bread.png"></ion-img>
-                    <p text-wrap>{{row.foodValue === '' ? '-' : row.foodValue}}</p>
+                    <p text-wrap>{{row.foodValue === '' || row.foodValue === '0.0' ? '-' : row.foodValue}}</p>
                   </ion-item>
                   <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
                     <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/syringe1.png"></ion-img>
-                    <p text-wrap>{{row.shortInsulinValue === '' ? '-' : row.shortInsulinValue}}</p>
+                    <p text-wrap>{{row.shortInsulinValue === '' || row.shortInsulinValue === '0.0' ? '-' : row.shortInsulinValue}}</p>
                   </ion-item>
                   <ion-item mode="ios" style="border: unset; width: 25%; float: left;">
                     <ion-img slot="start" style="width: 30%; margin-right: 8px;" src="assets/imgs/syringe.png"></ion-img>
-                    <p text-wrap>{{row.extendedInsulinValue === '' ? '-' : row.extendedInsulinValue}}</p>
+                    <p text-wrap>{{row.extendedInsulinValue === '' || row.extendedInsulinValue === '0.0' ? '-' : row.extendedInsulinValue}}</p>
                   </ion-item>
 
                   <ion-item *ngIf="row.comment !== ''" mode="ios" style="border: unset;">

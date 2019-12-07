@@ -11,12 +11,6 @@ export class SignUpService {
     public loginData: LoginModel[] = [];
 
     public loginDataArray: any = [
-        {
-            id: 0,
-            login: 'test@test.ru',
-            password: '1',
-            personModelId: 0
-        },
     ];
 
     public personDataArray: any = [];
