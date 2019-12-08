@@ -261,8 +261,12 @@ export class DashboardPage implements OnInit {
 
         this.filteredDiaryModelArray.forEach((currentValue: RowDiaryModel) => {
           const index: number = this.lineChartLabels.findIndex((elem: number) => elem === currentValue.date.getHours());
-          this.lineChartData[0].data[index] = +currentValue.sugarValue;
-          this.lineChartData[1].data[index] = currentValue.foodValue !== '' && currentValue.foodValue !== '0.0' ? +currentValue.foodValue : null;
+          if (currentValue.sugarValue !== '' && currentValue.sugarValue !== '0.0') {
+            this.lineChartData[0].data[index] = +currentValue.sugarValue;
+          }
+          if (currentValue.foodValue !== '' && currentValue.foodValue !== '0.0') {
+            this.lineChartData[1].data[index] = +currentValue.foodValue ;
+          }
         });
         this.filteredDiaryModelArray.reverse();
       } else if (this.filterDaySegment === 'Week')  {
@@ -373,6 +377,10 @@ export class DashboardPage implements OnInit {
 
   public routeToExportData(): void {
     this.router.navigate(['/exportDataGlueDrop']);
+  }
+
+  public trackByF(index, item: RowDiaryModel): number {
+    return item.id;
   }
 
 }

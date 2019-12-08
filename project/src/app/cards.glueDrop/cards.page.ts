@@ -235,4 +235,8 @@ export class CardsPage implements OnInit {
   public goToDashboard(): void {
     this.router.navigate(['/dashboardGlueDrop']);
   }
+
+  public trackByF(index, item: RowDiaryModel): number {
+    return item.id;
+  }
 }

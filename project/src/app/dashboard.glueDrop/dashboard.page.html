@@ -126,7 +126,7 @@
         </ion-row>
         <ion-row>
           <ion-list no-margin mode="ios">
-            <ion-item-sliding *ngFor="let row of filteredDiaryModelArray; let i = index">
+            <ion-item-sliding *ngFor="let row of filteredDiaryModelArray; trackBy: trackByF; let i = index">
               <ion-item style="--padding-start: unset">
                 <ion-label style="margin-top: unset; margin-right: unset">
                   <ion-item  style="border: unset">

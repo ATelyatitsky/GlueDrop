@@ -74,7 +74,7 @@
   </div>
 
   <ion-list no-margin mode="ios">
-    <ion-item-sliding  *ngFor="let row of rowDiaryModelArray; let i = index" #elem [id]="'sliding' + i">
+    <ion-item-sliding  *ngFor="let row of rowDiaryModelArray; trackBy: trackByF; let i = index" #elem [id]="'sliding' + i">
       <ion-item style="--padding-start: unset">
         <ion-label style="margin-top: unset; margin-right: unset">
           <ion-item  style="border: unset">
