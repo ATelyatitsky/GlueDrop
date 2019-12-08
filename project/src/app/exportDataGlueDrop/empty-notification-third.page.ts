@@ -5,7 +5,9 @@ import {RowDiaryService} from '../shared/service/row-diary.service';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 import {Router} from '@angular/router';
-import {json2csv} from 'json-2-csv';
+import { File } from '@ionic-native/file/ngx';
+import {Papa} from 'ngx-papaparse';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-empty-notification-third',
@@ -22,7 +24,7 @@ export class EmptyNotificationThirdPage implements OnInit {
 
   public rowDiaryModel: RowDiaryModel[] = [];
 
-  constructor(private router: Router, public rowDiaryService: RowDiaryService, public socialSharing: SocialSharing) { }
+  constructor(private papa: Papa, private file: File, private router: Router, public rowDiaryService: RowDiaryService, public socialSharing: SocialSharing, public toastController: ToastController) { }
 
   ngOnInit() {
     const date = new Date();
@@ -64,15 +66,41 @@ export class EmptyNotificationThirdPage implements OnInit {
         'Комментарий': element.comment
       };
     });
-    json2csv(objectToCsv, (err, csv) => {
-      if (err) throw err;
-      console.log(csv);
-      this.socialSharing.share(null, csv, csv, null);
-    }, {delimiter: {field: '  ', wrap  : ''} });
+    // json2csv(objectToCsv, (err, csv) => {
+    //   if (err) throw err;
+    //   console.log(csv);
+    //   const test = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+    //   const urlCsv = URL.createObjectURL(test);
+    //
+    // }, {delimiter: {field: '  ', wrap  : ''} });
+    const csv = this.papa.unparse({
+      fields: ['№ записи', '    Дата   ', ' Время  ', 'Уровень сахара', 'XE', 'Короткий инсулин', 'Продленный инсулин', 'Комментарий'],
+      data: objectToCsv
+    }, {quoteChar: '', delimiter: ' '});
+    console.log(csv);
+    this.file.writeFile(this.file.dataDirectory, 'data.csv', csv, {replace: true}).then( res => {
+      this.socialSharing.share(null, null, res.nativeURL, null).then(e => {
+        this.presentToast('Данные успешно экспортированы');
+      }).catch(e => {
+        this.presentToast('Ошибка экспорта.', 'danger');
+      });
+    }, err => {
+      this.presentToast('Ошибка экспорта.', 'danger');
+    });
+    // this.socialSharing.share(null, null, urlCsv, null);
   }
 
   public backToDashboard(): void {
     this.router.navigate(['/dashboardGlueDrop']);
+  }
+
+  public async presentToast(messageString: string, type: string = 'success'): Promise<void> {
+    const toast = await this.toastController.create({
+      message: messageString,
+      duration: 2000,
+      color: type
+    });
+    toast.present();
   }
 
 }

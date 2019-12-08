@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { EmptyNotificationThirdPage } from './empty-notification-third.page';
-import {json2csv} from 'json-2-csv';
+import { File } from '@ionic-native/file/ngx';
+import {PapaParseModule} from 'ngx-papaparse';
 
 const routes: Routes = [
   {
@@ -21,7 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    PapaParseModule,
   ],
-  declarations: [EmptyNotificationThirdPage]
+  declarations: [EmptyNotificationThirdPage],
+  providers: [File]
 })
 export class EmptyNotificationThirdPageModule {}
