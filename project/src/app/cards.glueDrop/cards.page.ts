@@ -21,6 +21,8 @@ export class CardsPage implements OnInit {
   public maxFirstRangeValue = 20;
   public stepRange = 1;
 
+  public editRowEnable = false;
+
 
   public modeArray: string[] = ['Сахар', 'Еда', 'Короткий инсулин', 'Продленный инсулин', 'Комментарий'];
 
@@ -43,9 +45,9 @@ export class CardsPage implements OnInit {
   }
 
   public async addNewRecord(): Promise<void> {
-    if (this.rowDiaryModel.comment === '' && this.rowDiaryModel.extendedInsulinValue === '' &&
-        this.rowDiaryModel.shortInsulinValue === '' && this.rowDiaryModel.foodValue === '' &&
-        this.rowDiaryModel.sugarValue === '') {
+    if (this.rowDiaryModel.comment === '' && (this.rowDiaryModel.extendedInsulinValue === '' ||  this.rowDiaryModel.extendedInsulinValue === '0.0') &&
+        (this.rowDiaryModel.shortInsulinValue === '' || this.rowDiaryModel.shortInsulinValue === '0.0' ) && (this.rowDiaryModel.foodValue === '' || this.rowDiaryModel.foodValue === '0.0' ) &&
+        (this.rowDiaryModel.sugarValue === '' || this.rowDiaryModel.sugarValue === '0.0')) {
       this.presentToast('Нельзя добавить пустую запись', 'warning');
       return;
     }
@@ -55,6 +57,8 @@ export class CardsPage implements OnInit {
 
     this.rowDiaryModelArray = (await this.rowDiaryService.getDiaryRowValueByPersonId()).reverse();
 
+    this.rowDiaryModel = new RowDiaryModel();
+    this.changeSelectedMood(this.modeArray[0]);
     this.presentToast('Запись добавлена');
   }
 
@@ -90,10 +94,77 @@ export class CardsPage implements OnInit {
 
     this.selectedMood = mood;
     switch (this.selectedMood) {
-      case 'Сахар': this.selectedUnit = 'ммоль/л';  break;
-      case 'Еда': this.selectedUnit = 'ХЕ'; break;
-      case 'Короткий инсулин': this.selectedUnit = 'ед'; break;
-      case 'Продленный инсулин': this.selectedUnit = 'ед'; break;
+      case 'Сахар': {
+        if (this.editRowEnable) {
+          let splitValue: string[] = [];
+          if (this.rowDiaryModel.sugarValue.length > 1) {
+            splitValue =  this.rowDiaryModel.sugarValue.split('.');
+          } else if (this.rowDiaryModel.sugarValue.length === 1) {
+            splitValue.push(this.rowDiaryModel.sugarValue);
+          }
+
+          this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+          this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+          if (this.rowDiaryModel.sugarValue.length > 1) {
+            this.rowValue = this.rowDiaryModel.sugarValue;
+          }
+
+        }
+
+        this.selectedUnit = 'ммоль/л'; break;
+      }
+      case 'Еда': {
+        if (this.editRowEnable) {
+          let splitValue: string[] = [];
+          if (this.rowDiaryModel.foodValue.length > 1) {
+            splitValue =  this.rowDiaryModel.foodValue.split('.');
+          } else if (this.rowDiaryModel.foodValue.length === 1) {
+            splitValue.push(this.rowDiaryModel.foodValue);
+          }
+
+          this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+          this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+          if (this.rowDiaryModel.foodValue.length > 1) {
+            this.rowValue = this.rowDiaryModel.foodValue;
+          }
+        }
+        this.selectedUnit = 'ХЕ'; break;
+      }
+      case 'Короткий инсулин': {
+        if (this.editRowEnable) {
+          let splitValue: string[] = [];
+          if (this.rowDiaryModel.shortInsulinValue.length > 1) {
+            splitValue =  this.rowDiaryModel.shortInsulinValue.split('.');
+          } else if (this.rowDiaryModel.shortInsulinValue.length === 1) {
+            splitValue.push(this.rowDiaryModel.shortInsulinValue);
+          }
+
+          this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+          this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+          if (this.rowDiaryModel.shortInsulinValue.length > 1) {
+            this.rowValue = this.rowDiaryModel.shortInsulinValue;
+          }
+
+        }
+        this.selectedUnit = 'ед'; break;
+      }
+      case 'Продленный инсулин': {
+        if (this.editRowEnable) {
+          let splitValue: string[] = [];
+          if (this.rowDiaryModel.extendedInsulinValue.length > 1) {
+            splitValue =  this.rowDiaryModel.extendedInsulinValue.split('.');
+          } else if (this.rowDiaryModel.extendedInsulinValue.length === 1) {
+            splitValue.push(this.rowDiaryModel.extendedInsulinValue);
+          }
+
+          this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+          this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+          if (this.rowDiaryModel.extendedInsulinValue.length > 1) {
+            this.rowValue = this.rowDiaryModel.extendedInsulinValue;
+          }
+        }
+        this.selectedUnit = 'ед'; break;
+      }
     }
   }
 
@@ -125,7 +196,40 @@ export class CardsPage implements OnInit {
 
   public async deleteRow(index: number): Promise<void> {
     this.rowDiaryModelArray = (await this.rowDiaryService.deleteDiaryRow(this.rowDiaryModelArray[index].id)).reverse();
-    console.log(this.rowDiaryModelArray);
+    this.presentToast('Запись успешно удалена');
+  }
+
+  public editRow(index: number): void {
+    this.dateNow = this.rowDiaryModelArray[index].date.toISOString();
+    this.rowDiaryModel = this.rowDiaryModelArray[index];
+
+    let splitValue: string[] = [];
+    if (this.rowDiaryModelArray[index].sugarValue.length > 1) {
+      splitValue =  this.rowDiaryModelArray[index].sugarValue.split('.');
+    } else if (this.rowDiaryModelArray[index].sugarValue.length === 1) {
+      splitValue.push(this.rowDiaryModelArray[index].sugarValue);
+    }
+
+    this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+    this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+    this.rowValue = this.rowDiaryModelArray[index].sugarValue.length > 1 ? this.rowDiaryModelArray[index].sugarValue : '0.0';
+
+    this.editRowEnable = true;
+  }
+
+  public async editRecord(): Promise<void> {
+    await this.rowDiaryService.saveDiaryRow(this.rowDiaryModel);
+
+    this.rowDiaryModelArray = (await this.rowDiaryService.getDiaryRowValueByPersonId()).reverse();
+    this.presentToast('Запись успешно отредактирована');
+  }
+
+  public async resetEditRowMod(): Promise<void> {
+    this.editRowEnable = false;
+    this.rowDiaryModel = new RowDiaryModel();
+    this.changeSelectedMood(this.modeArray[0]);
+
+    this.rowDiaryModelArray = (await this.rowDiaryService.getDiaryRowValueByPersonId()).reverse();
   }
 
   public goToDashboard(): void {

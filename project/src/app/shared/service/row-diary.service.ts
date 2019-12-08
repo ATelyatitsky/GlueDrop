@@ -34,13 +34,21 @@ export class RowDiaryService {
 
     public async saveDiaryRow(rowDiaryModel: RowDiaryModel): Promise<void> {
         await this.getDiaryRowValue('diary');
-        rowDiaryModel.personId = await this.getPersonModelId('personModelId');
-        if (this.rowDiaryModelArray.length > 0) {
-            rowDiaryModel.id = this.rowDiaryModelArray[this.rowDiaryModelArray.length - 1].id + 1;
+        if (rowDiaryModel.id === 0) {
+            rowDiaryModel.personId = await this.getPersonModelId('personModelId');
+            if (this.rowDiaryModelArray.length > 0) {
+                rowDiaryModel.id = this.rowDiaryModelArray[this.rowDiaryModelArray.length - 1].id + 1;
+            } else {
+                rowDiaryModel.id = 1;
+            }
+            this.rowDiaryModelArray.push(rowDiaryModel);
         } else {
-            rowDiaryModel.id = 1;
+            const index = this.rowDiaryModelArray.findIndex((row) => row.id === rowDiaryModel.id);
+            if (index !== -1) {
+                this.rowDiaryModelArray[index] = rowDiaryModel;
+            }
         }
-        this.rowDiaryModelArray.push(rowDiaryModel);
+
         this.setValue('diary', this.rowDiaryModelArray);
     }
 

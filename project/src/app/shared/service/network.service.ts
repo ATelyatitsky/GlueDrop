@@ -5,7 +5,6 @@ import {ToastController} from '@ionic/angular';
 @Injectable()
 export class NetworkService {
     constructor(private network: Network, public toastController: ToastController) {
-        debugger
         const disconnectSubscription = this.network.onDisconnect().subscribe(() => {
             this.presentToast('Потеряно интернет соединение', 'warning');
         });

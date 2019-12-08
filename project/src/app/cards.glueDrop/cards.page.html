@@ -53,7 +53,7 @@
             <ion-item *ngIf="selectedMood === 'Комментарий'">
               <ion-textarea placeholder="Введите комментарий к записи" [(ngModel)]="rowDiaryModel.comment"></ion-textarea>
             </ion-item>
-            <ion-list lines="none" padding no-margin class="is-list-buttons is-list-transparent">
+            <ion-list *ngIf="!editRowEnable" lines="none" padding no-margin class="is-list-buttons is-list-transparent">
               <ion-item color="primary" button detail="false" style="width: 60%; float: left; --border-radius: 10px; text-align: center;" (click)="addNewRecord()">
                 <ion-label>Готово</ion-label>
               </ion-item>
@@ -61,12 +61,20 @@
                 <ion-label>Далее</ion-label>
               </ion-item>
             </ion-list>
+            <ion-list *ngIf="editRowEnable" lines="none" padding no-margin class="is-list-buttons is-list-transparent">
+              <ion-item color="primary" button detail="false" style="width: 60%; float: left; --border-radius: 10px; text-align: center;" (click)="editRecord()">
+                <ion-label>Сохранить</ion-label>
+              </ion-item>
+              <ion-item color="light" button detail="false" style="width: 35%; --border-radius: 10px; margin-right: 0;margin-left: auto;" (click)="resetEditRowMod()">
+                <ion-label>Отменить</ion-label>
+              </ion-item>
+            </ion-list>
           </ion-card-content>
         </ion-card>
   </div>
 
   <ion-list no-margin mode="ios">
-    <ion-item-sliding *ngFor="let row of rowDiaryModelArray; let i = index">
+    <ion-item-sliding  *ngFor="let row of rowDiaryModelArray; let i = index" #elem [id]="'sliding' + i">
       <ion-item style="--padding-start: unset">
         <ion-label style="margin-top: unset; margin-right: unset">
           <ion-item  style="border: unset">
@@ -98,7 +106,7 @@
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option expandable color="warning" (click)="deleteRow(i)">Редактировать</ion-item-option>
+        <ion-item-option expandable color="warning" (click)="editRow(i); elem.close()">Редактировать</ion-item-option>
         <ion-item-option expandable color="danger" (click)="deleteRow(i)">Удалить</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
