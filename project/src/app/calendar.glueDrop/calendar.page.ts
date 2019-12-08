@@ -76,20 +76,19 @@ export class CalendarPage implements OnInit {
   }
 
   public setNotification(notification: NotificationModel): void {
-    this.scheduleNotification(notification.goal, notification.date);
+    this.scheduleNotification(notification.goal, notification.date, notification.daily);
     this.notificationService.saveNotification(notification);
     this.presentToast('Цель добавлена');
     this.getNotification();
   }
 
-  public scheduleNotification(goal: string, date: Date): void {
+  public scheduleNotification(goal: string, date: Date, daily: boolean): void {
     this.localNotification.schedule({
       id: 1,
       title: goal,
       text: 'Цель на ' + date.toLocaleDateString() + ' в ' + date.toLocaleTimeString() + ' - ' + goal,
       data: {page: '/cardsGlueDrop'},
-      // trigger: {every: {hour: 20, minute: 0} }
-      trigger: {in: 10, unit: ELocalNotificationTriggerUnit.SECOND},
+      trigger: daily ?  {every: {hour: date.getDate(), minute: date.getMinutes()} } :  {at: date},
       foreground: true
     });
   }

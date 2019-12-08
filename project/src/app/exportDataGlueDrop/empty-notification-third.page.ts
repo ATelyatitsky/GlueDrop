@@ -66,18 +66,11 @@ export class EmptyNotificationThirdPage implements OnInit {
         'Комментарий': element.comment
       };
     });
-    // json2csv(objectToCsv, (err, csv) => {
-    //   if (err) throw err;
-    //   console.log(csv);
-    //   const test = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-    //   const urlCsv = URL.createObjectURL(test);
-    //
-    // }, {delimiter: {field: '  ', wrap  : ''} });
     const csv = this.papa.unparse({
       fields: ['№ записи', '    Дата   ', ' Время  ', 'Уровень сахара', 'XE', 'Короткий инсулин', 'Продленный инсулин', 'Комментарий'],
       data: objectToCsv
     }, {quoteChar: '', delimiter: ' '});
-    console.log(csv);
+
     this.file.writeFile(this.file.dataDirectory, 'data.csv', csv, {replace: true}).then( res => {
       this.socialSharing.share(null, null, res.nativeURL, null).then(e => {
         this.presentToast('Данные успешно экспортированы');
@@ -87,7 +80,6 @@ export class EmptyNotificationThirdPage implements OnInit {
     }, err => {
       this.presentToast('Ошибка экспорта.', 'danger');
     });
-    // this.socialSharing.share(null, null, urlCsv, null);
   }
 
   public backToDashboard(): void {
