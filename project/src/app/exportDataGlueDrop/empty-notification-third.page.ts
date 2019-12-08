@@ -5,6 +5,7 @@ import {RowDiaryService} from '../shared/service/row-diary.service';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 import {Router} from '@angular/router';
+import {json2csv} from 'json-2-csv';
 
 @Component({
   selector: 'app-empty-notification-third',
@@ -51,7 +52,23 @@ export class EmptyNotificationThirdPage implements OnInit {
   }
 
   public exportData(): void {
-    this.socialSharing.share('test', null, null, null);
+    const objectToCsv = this.rowDiaryModel.map((element: RowDiaryModel) => {
+      return {
+        '№ записи': '    ' + element.id + '    ',
+        '    Дата   ': element.date.toLocaleDateString(),
+        ' Время  ': element.date.toLocaleTimeString(),
+        'Уровень сахара': '       ' + (element.sugarValue !== '' && element.sugarValue !== '0.0' ? element.sugarValue : ' ')  + '      ',
+        'XE': element.foodValue + '       ',
+        'Короткий инсулин': element.shortInsulinValue + '       ',
+        'Продленный инсулин': '       ' + element.extendedInsulinValue + '       ',
+        'Комментарий': element.comment
+      };
+    });
+    json2csv(objectToCsv, (err, csv) => {
+      if (err) throw err;
+      console.log(csv);
+      this.socialSharing.share(null, csv, csv, null);
+    }, {delimiter: {field: '  ', wrap  : ''} });
   }
 
   public backToDashboard(): void {

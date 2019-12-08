@@ -68,7 +68,6 @@ const routes: Routes = [
   { path: 'scheduleDay', loadChildren: './schedule-day/schedule-day.module#ScheduleDayPageModule' },
   { path: 'scheduleMonth', loadChildren: './schedule-month/schedule-month.module#ScheduleMonthPageModule' },
   { path: 'selectors', loadChildren: './selectors/selectors.module#SelectorsPageModule' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'signupAlt', loadChildren: './signup-alt/signup-alt.module#SignupAltPageModule' },
   { path: 'slidingList', loadChildren: './sliding-list/sliding-list.module#SlidingListPageModule' },
   { path: 'storage', loadChildren: './storage/storage.module#StoragePageModule' },

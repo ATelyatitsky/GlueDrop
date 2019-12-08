@@ -4,14 +4,14 @@ import {Type} from 'class-transformer';
 export class RowDiaryModel {
     public id: number;
     public personId: number;
+
+    @Type(() => Date)
+    public date: Date;
+
     public sugarValue: string;
     public foodValue: string;
     public shortInsulinValue: string;
     public extendedInsulinValue: string;
-
-
-    @Type(() => Date)
-    public date: Date;
 
     public comment: string;
 
