@@ -1,0 +1,13 @@
+:host {
+  background-size: cover;
+  background-position: center;
+  --background: transparent;
+  background-repeat: space;
+  background-image: url("assets/imgs/forest.png");
+
+  ion-content, ion-toolbar {
+    --background: transparent;
+    --ion-toolbar-border-color: transparent !important;
+    color: black;
+  }
+}

@@ -76,6 +76,7 @@ export class CalendarPage implements OnInit {
   }
 
   public setNotification(notification: NotificationModel): void {
+    notification.date.setSeconds(0);
     this.scheduleNotification(notification.goal, notification.date, notification.daily);
     this.notificationService.saveNotification(notification);
     this.presentToast('Цель добавлена');

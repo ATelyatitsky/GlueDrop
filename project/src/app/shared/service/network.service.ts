@@ -4,13 +4,16 @@ import {ToastController} from '@ionic/angular';
 
 @Injectable()
 export class NetworkService {
+    public isInternet = true;
     constructor(private network: Network, public toastController: ToastController) {
         const disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-            this.presentToast('Потеряно интернет соединение', 'warning');
+            this.isInternet = false;
+            this.presentToast('Отсутствует интернет - соединение', 'warning');
         });
 
         // watch network for a connection
         const connectSubscription = this.network.onConnect().subscribe(() => {
+            this.isInternet = true;
         });
     }
 

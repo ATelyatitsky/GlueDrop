@@ -3,7 +3,8 @@
     <ion-buttons slot="start" (click)="login()" style="cursor: pointer">
       <ion-icon slot="icon-only" style="color: white !important;" name="arrow-back"> </ion-icon>
     </ion-buttons>
-    <ion-title style="font-weight: normal">Регистрация</ion-title>
+    <ion-title style="font-weight: normal" *ngIf="id === 0">Регистрация</ion-title>
+    <ion-title style="font-weight: normal" *ngIf="id !== 0">Редактировать профиль</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,13 +21,17 @@
       <ion-icon slot="start" name="mail"></ion-icon>
       <ion-input placeholder="Email*" [(ngModel)]="loginData.login"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="id === 0">
       <ion-icon slot="start" name="lock"></ion-icon>
       <ion-input type="password" required="true" placeholder="Пароль*" [(ngModel)]="loginData.password"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="id === 0">
       <ion-icon slot="start" name="lock"></ion-icon>
       <ion-input type="password" required="true" placeholder="Проверка пароля" [(ngModel)]="checkPassword"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="id !== 0" (click)="changePassword()">
+      <ion-icon slot="start" name="lock"></ion-icon>
+      <ion-label >Сменить пароль</ion-label>
     </ion-item>
   </ion-list>
 
@@ -96,14 +101,22 @@
 
   <ion-list padding-vertical lines="none">
     <ion-item style="border-top: 1px solid var(--ion-color-is-mute-light);" text-center="true">
-      <ion-label>Регистрируясь, вы соглашаетесь с<br/>
+      <ion-label *ngIf="id === 0">Регистрируясь, вы соглашаетесь с<br/>
         <a href="">политикой конфиденциальности <br/> и условиями пользования</a></ion-label>
+
+      <ion-label *ngIf="id !== 0">
+        <a href="">Политика конфиденциальности <br/> и услови пользования</a></ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-list lines="none" no-margin class="is-list-buttons" style="padding: 0 16px" (click)="signUp()">
+  <ion-list *ngIf="id === 0" lines="none" no-margin class="is-list-buttons" style="padding: 0 16px" (click)="signUp()">
     <ion-item color="primary" button detail="true">
       Зарегистрироваться
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="id !== 0" lines="none" no-margin class="is-list-buttons" style="padding: 0 16px" (click)="signUp()">
+    <ion-item color="primary" button detail="true">
+      Сохранить
     </ion-item>
   </ion-list>
 </ion-content>

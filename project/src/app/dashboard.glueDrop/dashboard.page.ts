@@ -288,6 +288,10 @@ export class DashboardPage implements OnInit {
             this.lineChartData[0].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
               return accumulator + +currentValue.sugarValue;
             }, initialValue) / averageValueArray.length).toFixed(1);
+
+            this.lineChartData[1].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
+              return accumulator + +currentValue.foodValue;
+            }, initialValue) / averageValueArray.length).toFixed(1);
           }
 
         }while (i++ < 7);
@@ -310,6 +314,10 @@ export class DashboardPage implements OnInit {
           if (averageValueArray.length > 0) {
             this.lineChartData[0].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
               return accumulator + +currentValue.sugarValue;
+            }, initialValue) / averageValueArray.length).toFixed(1);
+
+            this.lineChartData[1].data[lengthChart - 1] = (averageValueArray.reduce((accumulator: number, currentValue: RowDiaryModel) => {
+              return accumulator + +currentValue.foodValue;
             }, initialValue) / averageValueArray.length).toFixed(1);
           }
 

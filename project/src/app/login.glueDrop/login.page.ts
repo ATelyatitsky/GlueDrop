@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
   }
 
   public signUp(): void {
-    this.router.navigate(['/signupGlueDrop']);
+    this.router.navigate(['/signupGlueDrop/' + 0]);
   }
 
 }
