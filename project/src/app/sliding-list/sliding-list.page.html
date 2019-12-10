@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Калькулятор ХЕ</ion-title>
+    <ion-buttons slot="end" (click)="closeCalc()">
+      <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="modeSegment" (ngModelChange)="clearFilter()">
+      <ion-segment-button value="search" style="width: 50% !important; max-width: unset;">
+        <ion-label>Поиск</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="add" style="width: 50% !important; max-width: unset;">
+        <ion-label>Добавленные</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-searchbar *ngIf="modeSegment === 'search'" [debounce]="350" placeholder="Поиск" (ionChange)="findFood($event)" (ionClear)="clearFilter()"></ion-searchbar>
+
+  <ion-list *ngIf="modeSegment === 'search'">
+      <ion-item button *ngFor="let food of filteredValue" (click)="openPicker(food.unit, food.name, food.value)">
+        <ion-label>
+          <h2>{{food.name}}</h2>
+          <p text-wrap>Ед. измерения: <strong>{{food.unit}}</strong></p>
+        </ion-label>
+        <div slot="end" class="is-condensed-note">
+          <p>В 1 ХЕ: <strong>{{food.value}}</strong></p>
+        </div>
+      </ion-item>
+  </ion-list>
+
+<ion-list *ngIf="modeSegment !== 'search'">
+  <ion-label *ngIf="addedFood.length > 0" style="margin-top: 10px; display: inline-block; width: 100%; text-align: center; font-size: 18px;">Добавлено продуктов: {{addedFood.length}}</ion-label>
+  <ion-text style="margin-top: 10px; display: inline-block; width: 100%; text-align: center; font-size: 18px; font-weight: 600;" *ngIf="addedFood.length === 0">Корзина продуктов пустая</ion-text>
+  <ion-text style="display: inline-block; width: 100%; text-align: center;" *ngIf="addedFood.length === 0">Добавьте продукты из списка</ion-text>
+  <ion-item-sliding *ngFor="let food of addedFood; let i = index">
+    <ion-item (click)="openPicker(food.unit, food.name, food.value, i)">
+      <ion-label>
+        <h2>{{food.name}}</h2>
+        <p text-wrap>{{food.value}} {{food.unit}}</p>
+      </ion-label>
+      <div slot="end" class="is-condensed-note">
+        <p><strong>{{food.xeValue}}</strong> XE</p>
+      </div>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option color="danger"  (click)="deleteRow(i)">Удалить</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+</ion-content>

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CardsPage } from './cards.page';
+import {SlidingListPage} from '../sliding-list/sliding-list.page';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CardsPage]
+  declarations: [CardsPage, SlidingListPage],
+  entryComponents: [SlidingListPage],
 })
 export class CardsPageModule {}

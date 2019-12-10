@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {RowDiaryModel} from '../shared/model/row-diary.model';
-import {ToastController} from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 import {RowDiaryService} from '../shared/service/row-diary.service';
 import {Router} from '@angular/router';
+import {NotificationPage} from '../calendar.glueDrop/modalPage/notification.page';
+import {SlidingListPage} from '../sliding-list/sliding-list.page';
 
 @Component({
   selector: 'app-cards',
@@ -35,7 +37,7 @@ export class CardsPage implements OnInit {
 
   public dateNow: string = new Date().toISOString();
 
-  constructor(public toastController: ToastController, public rowDiaryService: RowDiaryService, private router: Router) {
+  constructor(public modalController: ModalController, public toastController: ToastController, public rowDiaryService: RowDiaryService, private router: Router) {
   }
 
   ngOnInit() {
@@ -221,7 +223,9 @@ export class CardsPage implements OnInit {
     await this.rowDiaryService.saveDiaryRow(this.rowDiaryModel);
 
     this.rowDiaryModelArray = (await this.rowDiaryService.getDiaryRowValueByPersonId()).reverse();
+    this.editRowEnable = false;
     this.presentToast('Запись успешно отредактирована');
+    this.resetEditRowMod();
   }
 
   public async resetEditRowMod(): Promise<void> {
@@ -238,5 +242,39 @@ export class CardsPage implements OnInit {
 
   public trackByF(index, item: RowDiaryModel): number {
     return item.id;
+  }
+
+  public async openModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: SlidingListPage,
+      componentProps: {
+        addedFood: this.rowDiaryModel.food
+      },
+    });
+    await modal.present();
+    const addedFood =  await modal.onWillDismiss();
+    const summ =  addedFood.data.addedFood.reduce((a, b) => a + b.xeValue, 0);
+    if (summ > 0) {
+      let splitValue: string[] = [];
+      if (summ.toString() > 1) {
+        splitValue =  summ.toString().split('.');
+      } else if (summ.toString().length === 1) {
+        splitValue.push(summ.toString());
+      }
+
+      this.selectedValue1 = splitValue.length >= 1 ? +splitValue[0] : 0;
+      this.selectedValue2 = splitValue.length > 1 ? +splitValue[1] : 0;
+      this.rowValue = summ.toString() > 1 ? summ.toString() : '0.0';
+      this.rowDiaryModel.food = addedFood.data.addedFood;
+    }
+  }
+
+  public returnFoodRow(food: []): string {
+    let row = '';
+    food.forEach((element: any) => {
+      row += element.name + ' - ' + element.value + ' ' + element.unit;
+      row += ', ';
+    });
+    return row;
   }
 }

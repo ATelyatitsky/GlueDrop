@@ -16,6 +16,11 @@ export class AppComponent {
 
   public glueDropPages = [
     {
+      title: 'Профиль',
+      url: '/profileSettings',
+      icon: 'list'
+    },
+    {
       title: 'Заставка',
       url: '/walkthroughSliderGlueDrop',
       icon: 'list'
@@ -43,11 +48,6 @@ export class AppComponent {
     {
       title: 'Мои цели',
       url: '/calendarGlueDrop',
-      icon: 'list'
-    },
-    {
-      title: 'Профиль',
-      url: '/profileSettings',
       icon: 'list'
     },
   ];

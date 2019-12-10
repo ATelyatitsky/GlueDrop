@@ -15,6 +15,8 @@ export class RowDiaryModel {
 
     public comment: string;
 
+    public food: [];
+
     constructor() {
     this.id = 0;
     this.personId = 0;
@@ -25,5 +27,6 @@ export class RowDiaryModel {
     this.date = new Date();
 
     this.comment = '';
+    this.food = [];
     }
 }

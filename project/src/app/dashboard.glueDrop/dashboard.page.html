@@ -151,6 +151,10 @@
                     <p text-wrap>{{row.extendedInsulinValue === '' || row.extendedInsulinValue === '0.0' ? '-' : row.extendedInsulinValue}}</p>
                   </ion-item>
 
+                  <ion-item *ngIf="row.food.length > 0" mode="ios" style="border: unset;">
+                    <ion-icon  slot="start" name="restaurant" style="margin-right: 8px"></ion-icon>
+                    <p text-wrap>{{returnFoodRow(row.food)}}</p>
+                  </ion-item>
                   <ion-item *ngIf="row.comment !== ''" mode="ios" style="border: unset;">
                     <ion-img slot="start" style="width: 6%; margin-right: 8px;" src="assets/imgs/comment.png"></ion-img>
                     <p text-wrap>{{row.comment}}</p>

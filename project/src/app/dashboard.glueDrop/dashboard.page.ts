@@ -391,4 +391,13 @@ export class DashboardPage implements OnInit {
     return item.id;
   }
 
+  public returnFoodRow(food: []): string {
+    let row = '';
+    food.forEach((element: any) => {
+      row += element.name + ' - ' + element.value + ' ' + element.unit;
+      row += ', ';
+    });
+    return row;
+  }
+
 }
