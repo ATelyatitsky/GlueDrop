@@ -20,7 +20,7 @@
   </div>
 
   <ion-list>
-    <ion-item button (click)="editProfile()">
+    <ion-item button (click)="editProfile()" [disabled]="!networkService.isInternet">
       <ion-avatar slot="start" class="is-icon-avatar is-background-primary">
         <ion-icon name="contact"></ion-icon>
       </ion-avatar>

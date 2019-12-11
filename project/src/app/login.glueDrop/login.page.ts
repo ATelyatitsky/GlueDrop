@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {SignUpService} from '../shared/service/sign-up.service';
 import {ToastController} from '@ionic/angular';
+import {NetworkService} from '../shared/service/network.service';
 
 @Component({
   selector: 'app-login-background',
@@ -15,7 +16,7 @@ export class LoginPage implements OnInit {
   public email: string;
   public password: string;
 
-  constructor(private router: Router, public signUpService: SignUpService, public toastController: ToastController) { }
+  constructor(private router: Router, public signUpService: SignUpService, public toastController: ToastController, public networkService: NetworkService) { }
 
   ngOnInit() {
     this.signUpService.getPersonModelId().then((personModelId: number) => {
@@ -31,20 +32,23 @@ export class LoginPage implements OnInit {
   }
 
   public async login(): Promise<void> {
-    const personModelId: number =  await this.signUpService.login(this.email, this.password);
-    if (personModelId !== -1) {
-      this.router.navigate(['/cardsGlueDrop']);
+    if (this.networkService.isInternet) {
+      const personModelId: number =  await this.signUpService.login(this.email, this.password);
+      if (personModelId !== -1) {
+        this.router.navigate(['/cardsGlueDrop']);
+      } else {
+        this.presentToast('Учетная запись не найдена', 'danger');
+      }
     } else {
-      this.presentToast();
+      this.presentToast('Отсутствует интернет - соединение', 'danger');
     }
-
   }
 
-  public async presentToast(): Promise<void> {
+  public async presentToast(messageString: string, type: string = 'success'): Promise<void> {
     const toast = await this.toastController.create({
-      message: 'Учатная запись не найдена.',
+      message: messageString,
       duration: 2000,
-      color: 'danger'
+      color: type
     });
     toast.present();
   }
