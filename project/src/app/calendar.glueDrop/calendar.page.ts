@@ -69,7 +69,6 @@ export class CalendarPage implements OnInit {
       componentProps: {
         typeNotification: data
       },
-      cssClass: 'my-custom-modal-css'
     });
     await modal.present();
     const notification =  await modal.onWillDismiss();

@@ -17,7 +17,7 @@ export class PersonModel {
     public constructor() {
         this.id = 0;
         this.loginName = '';
-        this.birthDate = new Date(1900, 1, 1);
+        this.birthDate = new Date(1900, 0, 1);
         this.gender = '1';
         this.diabetType = '1';
         this.carbohydrates = 12;
