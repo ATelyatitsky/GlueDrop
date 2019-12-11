@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'loginGlueDrop',
+    redirectTo: 'walkthroughSliderGlueDrop',
     pathMatch: 'full'
   },
   { path: 'profileSettings', loadChildren: './profile-settings/profile-settings.module#ProfileSettingsPageModule' },

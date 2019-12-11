@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
+import {SignUpService} from '../shared/service/sign-up.service';
 
 @Component({
   selector: 'app-walkthrough-slider',
@@ -16,9 +17,14 @@ export class WalkthroughSliderPage implements OnInit {
 
   env = environment;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public signUpService: SignUpService) { }
 
   ngOnInit() {
+    this.signUpService.getPersonModelId().then((personModelId: number) => {
+      if (personModelId !== 0) {
+        this.router.navigate(['/cardsGlueDrop']);
+      }
+    });
   }
 
   public skip(): void {
