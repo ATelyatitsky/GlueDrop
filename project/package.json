@@ -54,7 +54,7 @@
     "es6-promise-plugin": "4.2.2",
     "json-2-csv": "^3.5.7",
     "ng2-charts": "^1.4.1",
-    "ngx-papaparse": "^3.0.4",
+    "ngx-papaparse": "^6.0.2",
     "node-sass": "^4.13.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
